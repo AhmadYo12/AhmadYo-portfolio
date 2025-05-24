@@ -1,0 +1,136 @@
+.login-page {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.login-left {
+  width: 50%;
+  background-image: url(../assets/bg.png);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.left-title {
+  color: white;
+  font-weight: 700;
+  font-size: 130px;
+  line-height: 80%;
+  margin-bottom: 20px;
+  letter-spacing: 15px;
+}
+
+.left-p {
+  color: white;
+  font-weight: 600;
+  font-size: 25px;
+  width: 70%;
+  text-align: center;
+}
+
+.side-image {
+  max-width: 50%;
+  height: auto;
+}
+
+.login-right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+.login-container {
+  width: 65%;
+  max-width: 550px;
+  padding: 30px 60px;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 32px;
+  color: var(--text-color);
+  font-weight: 700;
+  margin-bottom: 35px;
+}
+
+.dento-text {
+  font-size: 40px;
+  color: var(--primary-color);
+}
+
+/* media queries */
+@media (max-width: 900px) and (min-width: 600px) {
+  .left-title {
+    font-size: 80px;
+    letter-spacing: 10px;
+  }
+
+  .left-p {
+    font-size: 12px;
+    width: 80%;
+  }
+}
+
+@media (max-width: 599px) {
+  .logo {
+    width: 120px;
+  }
+
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    width: 100%;
+    padding: 20px;
+    justify-content: flex-start;
+  }
+
+  .login-container {
+    padding: 20px 10px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .login-title {
+    font-size: 32px;
+  }
+
+  .dento-text {
+    font-size: 38px;
+  }
+
+  .input-group .input {
+    width: 90%;
+    padding: 15px;
+    font-size: 16px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    background-color: white;
+    direction: rtl;
+  }
+
+  .login-button {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+
+  .forgot-password {
+    text-align: left;
+  }
+
+  .input.input-success {
+    border-color: var(--primary-color);
+    animation: borderFadeIn 0.4s ease-in;
+  }
+}

@@ -1,0 +1,116 @@
+/* styles/Sidebar.css */
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 240px;
+  padding: 15px;
+  z-index: 100;
+  background: white;
+  overflow: hidden;
+  box-shadow: -8px 4px 10px #00AEEF40;
+  
+}
+
+.sidebar.dark {
+  background-color: #2c2c2c;
+  color: #eee;
+}
+
+.sidebar .sidebar-header {
+  text-align: center;
+  margin-bottom: 40px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar .logo {
+  width: 45px;
+  height: auto;
+}
+.title-dash {
+  margin: 0;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 150%;
+  display: flex;
+  align-items: center;
+  color: var(--text-color-2);
+}
+.sidebar .sidebar-header i {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  color: var(--text-color-2);
+}
+.sidebar .company-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #0099ff;
+}
+
+.sidebar .sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar .sidebar-menu li {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 15px;
+}
+
+.sidebar .sidebar-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+.sidebar.dark .sidebar-menu li:hover {
+  background-color: #3b3b3b;
+}
+
+.sidebar .sidebar-menu li svg {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.sidebar .badge {
+  background-color: #00c3ff;
+  color: white;
+  font-size: 11px;
+  padding: 3px 7px;
+  border-radius: 10px;
+  margin-right: auto;
+}
+
+.sidebar-footer {
+  margin-top: 30px;
+}
+
+.toggle-dark {
+  width: 100%;
+  background: none;
+  border: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.toggle-dark:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.sidebar.dark .toggle-dark:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
