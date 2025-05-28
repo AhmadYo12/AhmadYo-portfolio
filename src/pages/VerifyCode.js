@@ -233,8 +233,8 @@ export default function VerifyCode() {
         <img src={sideImage} alt="Dento visual" className="side-image" />
         <div className="left-title">Dento</div>
         <div className="left-p">
-          تابع مبيعاتك، أدر منتجاتك، وراقب الطلبات بسهولة عبر لوحة التحكم
-          الخاصة بك على Dento
+          تابع مبيعاتك، أدر منتجاتك، وراقب الطلبات بسهولة عبر لوحة التحكم الخاصة
+          بك على Dento
         </div>
       </div>
     </div>
