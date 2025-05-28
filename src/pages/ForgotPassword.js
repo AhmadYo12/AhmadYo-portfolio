@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../styles/base.css";
 import "../styles/login.css";
 import logo from "../assets/logo.png";
@@ -8,22 +9,41 @@ import sideImage from "../assets/L.png";
 export default function ForgotPassword() {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const isValidPhone = /^09\d{8}$/.test(phone);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isValidPhone) {
       setError("يرجى إدخال رقم هاتف صحيح يبدأ بـ 09 ويتكون من 10 أرقام");
       return;
     }
 
+    setLoading(true);
     setError("");
-    // هنا يمكنك إرسال الرمز عبر API إذا أردت
 
-    // التوجيه إلى صفحة الرمز مع تمرير الرقم
-    navigate("/verify-code", { state: { phone } });
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/sendSupplier-reset-otp", {
+        phone,
+      });
+
+      if (response.data.status === "success") {
+        // التوجيه إلى صفحة التحقق من الرمز
+        navigate("/verify-code", { state: { phone } });
+      } else {
+        setError(response.data.message || "حدث خطأ ما");
+      }
+    } catch (err) {
+      if (err.response && err.response.data?.errors?.phone) {
+        setError(err.response.data.errors.phone[0]);
+      } else {
+        setError("فشل في الاتصال بالخادم. حاول لاحقاً.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -46,6 +66,7 @@ export default function ForgotPassword() {
                 placeholder=" "
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                disabled={loading}
               />
               <label>رقم الهاتف</label>
             </div>
@@ -55,8 +76,9 @@ export default function ForgotPassword() {
               type="submit"
               className="login-button"
               style={{ marginTop: "35px" }}
+              disabled={loading}
             >
-              إرسال الرمز
+              {loading ? "جاري الإرسال..." : "إرسال الرمز"}
             </button>
             <Link
               to="/login"

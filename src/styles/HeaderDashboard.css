@@ -2,7 +2,7 @@
   width: 100%;
   background-color: white;
   padding: 20px 20px;
-  box-shadow: -8px 4px 10px #00AEEF40;
+  box-shadow: -8px 4px 10px #00aeef40;
   direction: rtl; /* هذا يجعل المحتوى يبدأ من اليمين إلى اليسار */
   position: fixed;
   top: 0;
@@ -23,11 +23,11 @@
   color: var(--primary-color);
   display: flex;
   align-items: center;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 .company-name {
   font-weight: bold;
   color: #333;
-  font-size: 14px;
+  font-size: 16px;
 }

@@ -1,15 +1,18 @@
+// Login.js
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/base.css";
 import "../styles/login.css";
 import logo from "../assets/logo.png";
 import sideImage from "../assets/L.png";
+import axios from "axios";
 
 export default function Login() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
 
   const isValidPhone = /^09\d{8}$/.test(phone);
@@ -28,11 +31,31 @@ export default function Login() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      alert("تم تسجيل الدخول بنجاح!");
-      // navigate("/dashboard");
+    if (!validate()) return;
+
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/Supplierlogin",
+        { phone, password }
+      );
+
+      if (response.data.status === "success") {
+        const token = response.data.access_token;
+        const supplier = response.data.Supplier;
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("supplier", JSON.stringify(supplier));
+
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setLoginError("الرقم أو كلمة المرور غير صحيحة");
+      } else {
+        setLoginError("حدث خطأ غير متوقع، يرجى المحاولة لاحقاً");
+      }
     }
   };
 
@@ -46,7 +69,6 @@ export default function Login() {
           </div>
 
           <form onSubmit={handleLogin}>
-            {/* رقم الهاتف */}
             <div className="input-group">
               <input
                 className={`input ${
@@ -70,7 +92,6 @@ export default function Login() {
               {errors.phone && <div className="error">{errors.phone}</div>}
             </div>
 
-            {/* كلمة المرور */}
             <div className="password-wrapper">
               <div className="input-group">
                 <input
@@ -96,6 +117,8 @@ export default function Login() {
                 <div className="error">{errors.password}</div>
               )}
             </div>
+
+            {loginError && <div className="error">{loginError}</div>}
 
             <Link to="/forgot-password" className="forgot-password">
               نسيت كلمة المرور؟
