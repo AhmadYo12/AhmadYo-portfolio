@@ -2,6 +2,42 @@ import React from "react";
 import Header from "../components/HeaderDashboard";
 import Sidebar from "../components/Sidebar";
 import "../styles/dashboard.css";
+import { ReactComponent as ArrowUpIcon } from "../assets/icons/arrow-up-right.svg";
+import { ReactComponent as Star } from "../assets/icons/Vector-1.svg";
+import { ReactComponent as Warning } from "../assets/icons/warning 1.svg";
+
+const cardsData = [
+  {
+    title: "إجمالي المبيعات",
+    value: "$12.5k",
+    trend: "3.6%",
+    colorClass: "green",
+  },
+  {
+    title: "عدد المنتجات المباعة",
+    value: "1.014",
+    trend: "3.6%",
+    colorClass: "purple",
+  },
+  {
+    title: "عدد الطلبات هذا الشهر",
+    value: "1.650",
+    trend: "3.6%",
+    colorClass: "yellow",
+  },
+  {
+    title: "متوسط تقييمات المستخدمين",
+    value: (
+      <>
+        <span className="card-value-sub">(1031)</span>4.0{" "}
+        <Star className="star-icon" />
+      </>
+    ),
+    trend: "3.6%",
+    colorClass: "orange",
+  },
+];
+
 export default function Dashboard() {
   return (
     <div className="dashboard-container">
@@ -11,95 +47,80 @@ export default function Dashboard() {
         <div className="header-dash-container">
           <div className="dashboard-content main-scroll-area">
             <h1 className="page-title">الرئيسية</h1>
-
-            {/* أقسام الداشبورد (مبسطة – محتوى وهمي) */}
-            <div className="cards-row">
-              <div className="card orange">
-                <div className="card-row card-row-top">
-                  <span className="card-title">متوسط تقييمات المستخدمين</span>
-                  <i className="fa-solid fa-arrow-up-right card-arrow"></i>
-                </div>
-                <div className="card-row card-row-bottom">
-                  <span className="card-value"><i className="fa-solid fa-star card-icon orange" style={{color: '#FFD600', marginLeft: '6px'}}></i>4.0 <span className="card-value-sub">(1031)</span></span>
-                  <span className="card-trend orange-trend"><i className="fa-solid fa-arrow-trend-up"></i>3.6% هذا الشهر</span>
-                </div>
-              </div>
-              <div className="card yellow">
-                <div className="card-row card-row-top">
-                  <span className="card-title">عدد الطلبات هذا الشهر</span>
-                  <i className="fa-solid fa-arrow-up-right card-arrow"></i>
-                </div>
-                <div className="card-row card-row-bottom">
-                  <span className="card-value">1,650</span>
-                  <span className="card-trend yellow-trend"><i className="fa-solid fa-arrow-trend-up"></i>3.6% آخر أسبوع</span>
-                </div>
-              </div>
-              <div className="card purple">
-                <div className="card-row card-row-top">
-                  <span className="card-title">عدد المنتجات المباعة</span>
-                  <i className="fa-solid fa-arrow-up-right card-arrow"></i>
-                </div>
-                <div className="card-row card-row-bottom">
-                  <span className="card-value">1,014</span>
-                  <span className="card-trend purple-trend"><i className="fa-solid fa-arrow-trend-up"></i>3.6% آخر أسبوع</span>
-                </div>
-              </div>
-              <div className="card green">
-                <div className="card-row card-row-top">
-                  <span className="card-title">إجمالي الأرباح</span>
-                  <i className="fa-solid fa-arrow-up-right card-arrow"></i>
-                </div>
-                <div className="card-row card-row-bottom">
-                  <span className="card-value">$12.5k</span>
-                  <span className="card-trend green-trend"><i className="fa-solid fa-arrow-trend-up"></i>3.6% آخر أسبوع</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="dashboard-flex-row">
-              <div className="side-cards">
-                <div className="card red card-waiting">
+            <div className="dashboard-grid">
+              {cardsData.map(({ title, value, trend, colorClass }, i) => (
+                <div
+                  key={i}
+                  className={`card ${colorClass} grid-card card${i + 1}`}
+                >
                   <div className="card-row card-row-top">
-                    <span className="card-title">طلبات قيد الانتظار</span>
-                    <i className="fa-solid fa-arrow-up-right card-arrow"></i>
-                    <i className="fa-solid fa-triangle-exclamation card-icon red" style={{color: '#E53935', marginLeft: '8px', fontSize: '1.5rem'}}></i>
+                    <span className="card-title">{title}</span>
+                    <ArrowUpIcon
+                      className={`arrow-icon ${colorClass}-arrow-icon`}
+                    />
                   </div>
                   <div className="card-row card-row-bottom">
-                    <span className="card-value">20 طلبًا</span>
+                    <span className="card-value">{value}</span>
+                    <span className={`card-trend ${colorClass}-trend`}>
+                      <span className="trend-number">
+                        {trend}
+                        <i className="fa-solid fa-arrow-trend-up"></i>
+                      </span>
+                      <span className="trend-tail">هذا الشهر</span>
+                    </span>
+                  </div>
+                </div>
+              ))}
+
+              <div className="side-box">
+                <div className="card red card-waiting grid-card">
+                  <div className="card-row card-row-top">
+                    <span className="card-title">طلبات قيد الانتظار</span>
+                    <Warning className="waening-icon" />
+                  </div>
+                  <div className="card-row card-row-bottom">
+                    <span className="card-value red-value">
+                      20<span> طلباً </span>
+                    </span>
                     <span className="card-trend red-trend">قيد الانتظار</span>
                   </div>
                 </div>
+
                 <div className="chart-card">
                   <div className="card-row card-row-top">
                     <span className="card-title">المبيعات آخر أسبوع</span>
-                    <i className="fa-solid fa-arrow-up-right card-arrow"></i>
                   </div>
                   <div className="card-row card-row-bottom">
-                    <span className="card-value">1,259</span>
-                    <span className="card-trend green-trend">منتج مبيع</span>
+                    <span className="card-value">
+                      1.259 <span>منتج مباع</span>
+                    </span>
                   </div>
                   <div className="fake-chart">
                     <svg width="100%" height="100%" viewBox="0 0 200 80">
-                      <rect x="10" y="60" width="12" height="20" rx="3" fill="#00aeef" />
-                      <rect x="30" y="50" width="12" height="30" rx="3" fill="#00aeef" />
-                      <rect x="50" y="40" width="12" height="40" rx="3" fill="#00aeef" />
-                      <rect x="70" y="30" width="12" height="50" rx="3" fill="#00aeef" />
-                      <rect x="90" y="60" width="12" height="20" rx="3" fill="#00aeef" />
-                      <rect x="110" y="20" width="12" height="60" rx="3" fill="#00aeef" />
-                      <rect x="130" y="50" width="12" height="30" rx="3" fill="#00aeef" />
-                      <rect x="150" y="35" width="12" height="45" rx="3" fill="#00aeef" />
+                      {[10, 30, 50, 70, 90, 110, 130, 150].map((x, idx) => (
+                        <rect
+                          key={idx}
+                          x={x}
+                          y={idx % 2 === 0 ? 60 - idx * 5 : 50 - idx * 5}
+                          width="12"
+                          height={20 + idx * 5}
+                          rx="3"
+                          fill="#00aeef"
+                        />
+                      ))}
                     </svg>
                   </div>
                 </div>
               </div>
-              <div className="orders-col">
+
+              <div className="orders-table-area">
                 <div className="new-orders-table-wrapper">
                   <div className="orders-table new-orders-table">
                     <div className="orders-table-header-row">
                       <span className="orders-table-title">طلبات جديدة</span>
                       <span className="orders-table-view-all">
-                        <i className="fa-solid fa-arrow-up-right"></i>
                         مشاهدة الكل
+                        <ArrowUpIcon className="arrow-icon" />
                       </span>
                     </div>
                     <table>
@@ -119,12 +140,16 @@ export default function Dashboard() {
                             <td>59217</td>
                             <td>د. أحمد الخشي</td>
                             <td>
-                              <span className="badge waiting">بانتظار القبول</span>
+                              <span className="badge waiting">
+                                بانتظار القبول
+                              </span>
                             </td>
                             <td>3</td>
                             <td>8:25 PM / 2025-04-01</td>
                             <td>
-                              <button className="btn-details">عرض التفاصيل</button>
+                              <button className="btn-details">
+                                عرض التفاصيل
+                              </button>
                             </td>
                           </tr>
                         ))}
