@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/Sidebar.css";
 import logo from "../assets/logo.png";
 import { ReactComponent as Close } from "../assets/icons/Panel-close-1.svg";
@@ -30,7 +30,7 @@ const menuItems = [
   {
     label: "المنتجات",
     icon: <Products className="products-icons side-icons" />,
-    path: "/products",
+    path: "/dashboard/products",
   },
   {
     label: "تقرير المبيعات",
@@ -46,8 +46,13 @@ const menuItems = [
 
 const Sidebar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => {
+    // Get the initial state from localStorage, default to false if not found
+    const savedState = localStorage.getItem("sidebarCollapsed");
+    return savedState ? JSON.parse(savedState) : false;
+  });
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const container = document.querySelector(".dashboard-container");
@@ -58,7 +63,19 @@ const Sidebar = () => {
         container.classList.remove("sidebar-collapsed");
       }
     }
+    // Save the collapsed state to localStorage whenever it changes
+    localStorage.setItem("sidebarCollapsed", JSON.stringify(collapsed));
   }, [collapsed]);
+
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const foundIndex = menuItems.findIndex((item) => item.path === currentPath);
+    setActiveIndex(foundIndex);
+  }, [location.pathname]);
+
+  const handleMenuItemClick = (item, idx) => {
+    navigate(item.path);
+  };
 
   return (
     <div className={`sidebar${collapsed ? " sidebar-collapsed" : ""}`}>
@@ -83,10 +100,7 @@ const Sidebar = () => {
           <li
             key={item.label}
             className={activeIndex === idx ? "active" : ""}
-            onClick={() => {
-              setActiveIndex(idx);
-              navigate(item.path);
-            }}
+            onClick={() => handleMenuItemClick(item, idx)}
           >
             {item.icon}
             {!collapsed && item.label}

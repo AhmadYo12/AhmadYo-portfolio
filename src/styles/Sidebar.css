@@ -1,7 +1,9 @@
 /* styles/Sidebar.css */
 .sidebar {
-  position: relative;
-  height: auto;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
   width: 240px;
   padding: 15px;
   z-index: 100;
@@ -96,6 +98,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  height: calc(100vh - 120px); /* ارتفاع الشاشة ناقص ارتفاع الهيدر */
+  overflow: hidden;
 }
 
 .sidebar .sidebar-menu li {
@@ -124,7 +128,9 @@
   color: var(--primary-color);
   border-radius: 12px;
   position: relative;
+  transition: all 0.3s ease;
 }
 .sidebar .sidebar-menu li.active .side-icons {
   color: var(--primary-color);
+  transition: all 0.3s ease;
 }

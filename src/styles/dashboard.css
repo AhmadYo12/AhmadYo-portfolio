@@ -52,6 +52,12 @@
   min-height: 100vh;
   flex: 1;
   min-width: 0;
+  margin-right: 240px;
+  transition: margin-right 0.3s;
+}
+
+.sidebar.sidebar-collapsed + .header-dash-container {
+  margin-right: 70px;
 }
 
 .dashboard-content {
@@ -482,7 +488,7 @@
   height: 100%;
   min-height: 0;
   width: 100%;
-  padding-right: 30px;
+  padding-right: 55px;
 }
 
 .new-orders-table {
