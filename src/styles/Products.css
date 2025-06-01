@@ -1,48 +1,53 @@
 .products-page-container {
   padding: var(--main-padding);
-  padding-top: calc(var(--main-padding) + 80px); /* لترك مساحة للرأس الثابت */
+  padding-top: calc(var(--main-padding) + 80px);
   flex: 1;
-  overflow-y: auto;
-  height: 100vh;
-  min-height: 0;
+  height: calc(100vh - 80px); /* طرح الهيدر */
   width: 100%;
   box-sizing: border-box;
   padding-right: 55px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* يمنع ظهور السكروول */
 }
 
+/* رأس الصفحة */
 .products-header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: center;
+  padding: 20px 20px 0 20px;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+}
+
+.btn-add-product,
+.btn-filter {
+  display: flex;
+  padding: 7px 12px;
+  border-radius: 12px;
+  border: none;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: var(--font-family);
+  cursor: pointer;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
 }
 
 .btn-add-product {
   background-color: var(--primary-color);
   color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-family: var(--font-family);
 }
 
 .btn-filter {
   background-color: #e0e0e0;
   color: var(--text-color);
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-family: var(--font-family);
 }
 
 .search-bar {
@@ -50,109 +55,177 @@
 }
 
 .search-bar input {
-  padding: 10px 10px 10px 40px; /* مساحة للأيقونة */
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
+  padding: 8px 6px 8px 20px;
+  width: 400px;
+  min-width: 200px;
+  border-radius: 12px;
+  border: 1px solid var(--primary-color);
+  font-size: 13px;
   font-family: var(--font-family);
   text-align: right;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
 }
-
+.search-bar input::placeholder {
+  color: var(--primary-color);
+}
 .search-icon {
   position: absolute;
-  left: 10px;
+  left: 8px;
   top: 50%;
   transform: translateY(-50%);
-  color: #888;
+  font-size: 15px;
+  color: var(--primary-color);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
 }
 
 .product-cell {
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .product-cell img {
-  width: 50px;
-  height: 50px;
-  margin-left: 10px;
-  border-radius: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
   object-fit: cover;
 }
-
-.badge.available {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 5px 10px;
-  border-radius: 12px;
+.badge.available,
+.badge.hidden {
+  font-family: var(--font-family);
+  padding: 5px 8px;
+  border-radius: 10px;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 500;
+  line-height: 16px;
+  display: inline-block;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.badge.available {
+  background: var(--badge-available-bg);
+  color: var(--badge-available-color);
+  border: 1px solid var(--badge-available-color);
 }
 
 .badge.hidden {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 5px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: bold;
+  background: var(--badge-waiting-bg);
+  color: var(--badge-waiting-color);
+  border: 1px solid var(--badge-waiting-border);
 }
 
 .rating {
   display: flex;
   align-items: center;
-  color: #ffc107; /* لون النجمة الذهبي */
+  justify-content: center;
+  gap: 2px;
 }
-
+.rating .reviews {
+  color: #454545;
+  font-size: 10px;
+  font-weight: 400;
+  margin-left: 1px;
+}
+.rating .num {
+  color: #454545;
+  font-size: 16px;
+  font-weight: 400;
+}
 .rating .star-icon {
-  margin-left: 5px;
+  width: 20px;
+  height: 20px;
 }
 
-.action-buttons .btn-edit {
-  background-color: #cfe2ff;
-  color: #084298;
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
 }
 
-.action-buttons .btn-delete {
-  background-color: #f8d7da;
-  color: #721c24;
+.btn-edit,
+.btn-delete {
+  display: flex;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: var(--font-family);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 
+.btn-edit {
+  background-color: var(--edit-color-bg);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-delete {
+  background-color: var(--badge-waiting-bg);
+  color: var(--badge-waiting-color);
+  border: 1px solid var(--badge-waiting-border);
+}
+
+/* الترقيم */
 .pagination {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 20px;
+  font-size: 14px;
+  font-weight: 600;
 }
-
+.pagination span {
+  color: #737373;
+  margin-left: 10px;
+}
+.pagination span .first {
+  color: var(--primary-color);
+  margin-left: 0;
+}
 .pagination-buttons button {
-  background-color: #e0e0e0;
-  border: 1px solid #ccc;
+  color: black;
+  border: 1.5px solid var(--primary-color);
   padding: 5px 10px;
-  margin: 0 5px;
+  margin: 0 2px;
   cursor: pointer;
   border-radius: 4px;
+  font-size: 12px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }
 
-.pagination-buttons button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.price{
+  font-family: var(--font-for-number);
 }
-
-/* استخدام تنسيقات الجدول الموجودة من dashboard.css */
-.orders-table-area {
-  /* قد تحتاج لبعض التعديلات الطفيفة هنا */
+.idname {
+  display: flex;
+  flex-direction: column;
 }
-
-.new-orders-table-wrapper {
-  /* قد تحتاج لبعض التعديلات الطفيفة هنا */
+.idname .name-product {
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 150%;
 }
-
-.orders-table {
-  /* قد تحتاج لبعض التعديلات الطفيفة هنا */
-}
-
-.new-orders-table th,
-.new-orders-table td {
-  /* تأكد من استخدام التنسيقات الموجودة */
+.idname .id-product {
+  display: flex;
+  align-items: start;
+  color: #1a71f6;
 }
 
 /* Responsive adjustments */
@@ -169,16 +242,12 @@
     width: 100%;
   }
 
-  .search-bar {
-    width: 100%;
-  }
-
   .search-bar input {
-    width: calc(100% - 50px);
+    width: 100%;
   }
 
   .action-buttons {
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
   }
 }

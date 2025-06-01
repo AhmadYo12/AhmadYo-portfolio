@@ -126,12 +126,12 @@ export default function Dashboard() {
                     <table>
                       <thead>
                         <tr>
-                          <th>رقم الطلب</th>
-                          <th>اسم الزبون</th>
-                          <th>الحالة</th>
-                          <th>عدد المنتجات</th>
-                          <th>الوقت والتاريخ</th>
-                          <th>أزرار الإجراء</th>
+                          <th className="id-order">رقم الطلب</th>
+                          <th className="name-doctor">اسم الزبون</th>
+                          <th className="state-order">الحالة</th>
+                          <th className="orders-num">عدد المنتجات</th>
+                          <th className="date-time">الوقت والتاريخ</th>
+                          <th className="show-more">أزرار الإجراء</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -145,7 +145,7 @@ export default function Dashboard() {
                               </span>
                             </td>
                             <td>3</td>
-                            <td>8:25 PM / 2025-04-01</td>
+                            <td className="date-time">8:25 PM / 2025-04-01</td>
                             <td>
                               <button className="btn-details">
                                 عرض التفاصيل

@@ -24,6 +24,9 @@
   --badge-waiting-bg: #ffdcdc;
   --badge-waiting-color: #ff0000;
   --badge-waiting-border: #ff0000;
+  --badge-available-bg: #d1fae5;
+  --badge-available-color: #04910c;
+  --edit-color-bg: #dbf5ff;
 }
 
 .dashboard-container {
@@ -223,27 +226,30 @@
 
 .orders-table table {
   width: 100%;
-  border: 1px solid var(--primary-color);
-  border-radius: 12px;
+  border: 2px solid var(--primary-color);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 16px;
   margin-top: 6px;
   font-size: 15px;
+  overflow: hidden;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
 }
 .orders-table tr {
   border: 1px solid var(--primary-color);
 }
 .orders-table th,
 .orders-table td {
-  padding: 8px 6px;
   text-align: center;
   border-bottom: 1px solid #e5e7eb;
 }
-
-.orders-table th {
-  background: #f3fafc;
-  color: #059669;
-  font-weight: bold;
+.orders-table td {
+  padding: 10px 5px;
+  font-size: 15px;
 }
-
 .badge.waiting {
   background: var(--badge-waiting-bg);
   color: var(--badge-waiting-color);
@@ -515,15 +521,6 @@
   cursor: pointer;
 }
 
-.new-orders-table table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 2px solid var(--primary-color);
-  border-radius: 16px;
-  overflow: hidden;
-}
-
 .new-orders-table th {
   background: #dbf5ff;
   color: var(--text-color);
@@ -538,13 +535,6 @@
 }
 .new-orders-table th:last-child {
   border-top-left-radius: 16px;
-}
-
-.new-orders-table td {
-  padding: 14px 0;
-  font-size: 1.05rem;
-  border-bottom: 1px solid #e5e7eb;
-  text-align: center;
 }
 
 .new-orders-table tr:last-child td {
@@ -563,11 +553,7 @@
     font-size: 1.1rem;
     padding: 12px 8px 0 8px;
   }
-  .new-orders-table th,
-  .new-orders-table td {
-    font-size: 0.95rem;
-    padding: 8px 0;
-  }
+
   .new-orders-table .btn-details {
     font-size: 0.95rem;
     padding: 6px 10px;
@@ -663,8 +649,13 @@
   width: unset !important;
   align-items: unset !important;
 }
+.new-orders-table th {
+  border-bottom: 1px solid var(--primary-color);
+  border-left: 1px solid var(--primary-color);
+  border-right: 1px solidvar(--primary-color);
+  text-align: center;
+}
 
-.new-orders-table th,
 .new-orders-table td {
   border-bottom: 1px solid #e5e7eb;
   border-left: 1px solid #e5e7eb;
@@ -704,4 +695,73 @@
 .new-orders-table th:last-child,
 .new-orders-table td:last-child {
   border-left: none;
+}
+
+.orders-table th:nth-child(1),
+.orders-table td:nth-child(1) {
+  width: 30%; /* يمكنك التعديل حسب الحاجة */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* أعمدة السعر، الحالة، التقييم بنفس العرض */
+.orders-table th:nth-child(2),
+.orders-table td:nth-child(2),
+.orders-table th:nth-child(3),
+.orders-table td:nth-child(3),
+.orders-table th:nth-child(4),
+.orders-table td:nth-child(4) {
+  width: 15%; /* متساوية */
+}
+
+/* عمود أزرار الإجراء أكبر */
+.orders-table th:nth-child(5),
+.orders-table td:nth-child(5) {
+  width: 15%;
+}
+
+/* عمود رقم الطلب أصغر */
+th.id-order,
+td:nth-child(1) {
+  width: 60px;
+  min-width: 60px;
+  max-width: 80px;
+  white-space: nowrap;
+}
+
+/* عمود اسم الزبون أكبر */
+th.name-doctor,
+td:nth-child(2) {
+  width: 120px;
+  min-width: 120px;
+  max-width: 140px;
+  white-space: nowrap;
+}
+
+/* عمود الحالة أكبر */
+th.state-order,
+td:nth-child(3) {
+  width: 100px;
+  min-width: 100px;
+  max-width: 170px;
+  white-space: nowrap;
+}
+
+/* عمود الوقت والتاريخ أكبر */
+th.date-time,
+td.date-time {
+  width: 150px;
+  min-width: 150px;
+  max-width: 190px;
+  white-space: nowrap;
+}
+
+/* عمود أزرار الإجراء بنفس حجم الوقت والتاريخ */
+th.show-more,
+td:nth-child(6) {
+  width: 150px;
+  min-width: 150px;
+  max-width: 190px;
+  white-space: nowrap;
 }
