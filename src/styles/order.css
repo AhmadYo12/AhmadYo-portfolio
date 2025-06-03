@@ -1,0 +1,63 @@
+.btn-filter {
+  background-color: white;
+  border: 1.5px solid var(--primary-color);
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  color: var(--text-color-2);
+  font-weight: 700;
+  font-size: 12px;
+  font-family: var(--font-family);
+  display: flex;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.filter-icon {
+  color: var(--text-color-2);
+  margin-right: 5px;
+}
+.badge {
+  padding: 1px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline-block;
+  border: 1.5px solid transparent;
+  font-size: 12px;
+}
+
+/* الحالة: مرفوض من قبلك */
+.badge.rejected {
+  background-color: #fce7f3;
+  color: #9d174d;
+  border-color: #f9a8d4;
+}
+
+/* الحالة: تم التوصيل بنجاح */
+.badge.delivered {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #6ee7b7;
+}
+
+/* الحالة: قيد التجهيز */
+.badge.preparing {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+/* الحالة: تم تسليم الطلب للمراسل */
+.badge.to-courier {
+  background-color: #dbf5ff;
+  color: #0c4a6e;
+  border-color: #7dd3fc;
+}
+
+/* الحالة: تم الإلغاء من قبل الزبون */
+.badge.canceled-by-customer {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fcd34d;
+}

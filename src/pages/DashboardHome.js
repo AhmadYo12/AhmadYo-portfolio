@@ -137,17 +137,17 @@ export default function Dashboard() {
                       <tbody>
                         {[...Array(8)].map((_, i) => (
                           <tr key={i}>
-                            <td>59217</td>
-                            <td>د. أحمد الخشي</td>
-                            <td>
-                              <span className="badge waiting">
+                            <td className="id-order">59217</td>
+                            <td className="name-doctor">د. أحمد الخشي</td>
+                            <td className="state-order">
+                              <span className="badge waiting ">
                                 بانتظار القبول
                               </span>
                             </td>
-                            <td>3</td>
+                            <td className="orders-num">3</td>
                             <td className="date-time">8:25 PM / 2025-04-01</td>
                             <td>
-                              <button className="btn-details">
+                              <button className="btn-details show-more">
                                 عرض التفاصيل
                               </button>
                             </td>

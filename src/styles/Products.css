@@ -24,8 +24,7 @@
   justify-content: space-between;
 }
 
-.btn-add-product,
-.btn-filter {
+.btn-add-product {
   display: flex;
   padding: 7px 12px;
   border-radius: 12px;
@@ -45,10 +44,7 @@
   color: white;
 }
 
-.btn-filter {
-  background-color: #e0e0e0;
-  color: var(--text-color);
-}
+
 
 .search-bar {
   position: relative;
@@ -209,7 +205,7 @@
   -o-border-radius: 8px;
 }
 
-.price{
+.price {
   font-family: var(--font-for-number);
 }
 .idname {

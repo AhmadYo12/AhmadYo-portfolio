@@ -15,24 +15,19 @@ export default function VerifyCode() {
   const [code, setCode] = useState(["", "", "", "", ""]);
   const [error, setError] = useState("");
 
-  // للحساب والتحكم في إعادة الإرسال
   const [resendCount, setResendCount] = useState(0);
   const [isResendDisabled, setIsResendDisabled] = useState(false);
   const [timer, setTimer] = useState(0);
-
   const timerRef = useRef(null);
 
-  // مفتاح التخزين في localStorage مرتبط بالرقم
   const storageKey = `resendData_${phone}`;
 
-  // حساب مدة الانتظار حسب عدد المحاولات
   const getWaitTime = (count) => {
-    if (count < 2) return 60; // 1 دقيقة
-    if (count < 5) return 15 * 60; // 15 دقيقة
-    return 24 * 60 * 60; // 24 ساعة
+    if (count < 2) return 60;
+    if (count < 5) return 15 * 60;
+    return 24 * 60 * 60;
   };
 
-  // بدء العد التنازلي مع تحديث التخزين المحلي
   const startTimer = (duration) => {
     setTimer(duration);
     setIsResendDisabled(true);
@@ -47,7 +42,6 @@ export default function VerifyCode() {
         }
         const newTime = prev - 1;
 
-        // تحديث وقت الانتهاء في localStorage مع الوقت المتبقي وعدد المحاولات
         const resendData = {
           count: resendCount,
           expireAt: Date.now() + newTime * 1000,
@@ -59,9 +53,8 @@ export default function VerifyCode() {
     }, 1000);
   };
 
-  // استعادة حالة إعادة الإرسال من localStorage عند تحميل الصفحة أو تغير الرقم
   useEffect(() => {
-    if (!phone) return; // إذا لم يوجد رقم لا نفعل شيئاً
+    if (!phone) return;
 
     const savedDataStr = localStorage.getItem(storageKey);
     if (savedDataStr) {
@@ -83,7 +76,6 @@ export default function VerifyCode() {
     }
   }, [phone]);
 
-  // دالة إعادة إرسال الرمز
   const handleResend = async () => {
     if (isResendDisabled) return;
 
@@ -95,7 +87,6 @@ export default function VerifyCode() {
 
       const waitTime = getWaitTime(newCount);
 
-      // تخزين بيانات إعادة الإرسال في localStorage
       const resendData = {
         count: newCount,
         expireAt: Date.now() + waitTime * 1000,
@@ -108,7 +99,6 @@ export default function VerifyCode() {
     }
   };
 
-  // دوال الكود والزر الأساسي كما لديك:
   const handleChange = (index, value) => {
     if (/^\d?$/.test(value)) {
       const newCode = [...code];
@@ -117,6 +107,12 @@ export default function VerifyCode() {
       if (value && index < 4) {
         document.getElementById(`code-${index + 1}`).focus();
       }
+    }
+  };
+
+  const handleKeyDown = (index, e) => {
+    if (e.key === "Backspace" && !code[index] && index > 0) {
+      document.getElementById(`code-${index - 1}`).focus();
     }
   };
 
@@ -142,8 +138,8 @@ export default function VerifyCode() {
         setError(response.data.message || "فشل التحقق من الرمز");
       }
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.message) {
-        setError(err.response.data.message); // مثل: "كود التحقق غير صحيح"
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
       } else {
         setError("حدث خطأ في الاتصال بالخادم. حاول مجددًا.");
       }
@@ -161,12 +157,19 @@ export default function VerifyCode() {
 
   const maskedPhone = formatPhone(phone);
 
-  // تنسيق الوقت للعرض "دقائق:ثواني"
   const formatTimer = (seconds) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
     return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
   };
+
+  const firstInputRef = useRef(null);
+
+  useEffect(() => {
+    if (firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
+  }, []);
 
   return (
     <div className="login-page">
@@ -180,17 +183,19 @@ export default function VerifyCode() {
           </p>
           <div className="input-title">رمز التحقق</div>
           <form onSubmit={handleSubmit}>
-            <div className="code-inputs">
+            <div className="code-inputs" dir="ltr">
               {code.map((digit, i) => (
                 <input
                   key={i}
                   id={`code-${i}`}
+                  ref={i === 0 ? firstInputRef : null}
                   type="text"
                   inputMode="numeric"
                   maxLength="1"
                   className="code-box"
                   value={digit}
                   onChange={(e) => handleChange(i, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(i, e)}
                 />
               ))}
             </div>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./../styles/Products.css";
 import Header from "../components/HeaderDashboard";
 import Sidebar from "../components/Sidebar";
@@ -6,10 +6,12 @@ import { ReactComponent as Add } from "../assets/icons/add-1.svg";
 import { ReactComponent as Delete } from "../assets/icons/delete-1.svg";
 import { ReactComponent as Edit } from "../assets/icons/edit-03.svg";
 import { ReactComponent as Star } from "../assets/icons/Vector-1.svg";
-import { ReactComponent as ToRight } from "../assets/icons/Icon-1.svg";
-import { ReactComponent as ToLeft } from "../assets/icons/Icon-2.svg";
+import { ReactComponent as ToRight } from "../assets/icons/Icon-2.svg"; // سهم لليمين (التالي)
+import { ReactComponent as ToLeft } from "../assets/icons/Icon-1.svg"; // سهم لليسار (السابق)
+
 function Products() {
-  const [products, setProducts] = useState([
+  // بيانات المنتجات مع تصحيح IDs المكررة
+  const [products] = useState([
     {
       id: 1,
       name: "Hemostal - هيموستال",
@@ -22,178 +24,163 @@ function Products() {
       orderId: "#59217",
     },
     {
-      id: 1,
+      id: 2,
       name: "هيموستال",
       imageUrl: "/path/to/product-image.png",
-      price: 20.0,
-      quantity: 234,
+      price: 18.0,
+      quantity: 200,
       status: "متاحة",
       rating: 4.0,
-      reviews: 1031,
-      orderId: "#59217",
+      reviews: 856,
+      orderId: "#59218",
     },
     {
-      id: 1,
-      name: "هيموستال",
+      id: 3,
+      name: "بطاطا",
       imageUrl: "/path/to/product-image.png",
-      price: 20.0,
-      quantity: 234,
-      status: "متاحة",
-      rating: 4.0,
-      reviews: 1031,
-      orderId: "#59217",
-    },
-    {
-      id: 1,
-      name: "هيموستال",
-      imageUrl: "/path/to/product-image.png",
-      price: 20.0,
-      quantity: 234,
-      status: "متاحة",
-      rating: 4.0,
-      reviews: 1031,
-      orderId: "#59217",
-    },
-    {
-      id: 1,
-      name: "هيموستال",
-      imageUrl: "/path/to/product-image.png",
-      price: 20.0,
-      quantity: 234,
+      price: 22.0,
+      quantity: 150,
       status: "مخفية",
-      rating: 4.0,
-      reviews: 1031,
-      orderId: "#59217",
+      rating: 4.2,
+      reviews: 920,
+      orderId: "#59219",
     },
     {
-      id: 1,
-      name: "هيموستال",
+      id: 4,
+      name: "بطيخ",
       imageUrl: "/path/to/product-image.png",
-      price: 20.0,
-      quantity: 234,
+      price: 21.5,
+      quantity: 170,
+      status: "متاحة",
+      rating: 4.1,
+      reviews: 1000,
+      orderId: "#59220",
+    },
+    {
+      id: 5,
+      name: "كريسبي",
+      imageUrl: "/path/to/product-image.png",
+      price: 19.5,
+      quantity: 190,
       status: "متاحة",
       rating: 4.0,
-      reviews: 1031,
-      orderId: "#59217",
+      reviews: 975,
+      orderId: "#59221",
     },
     {
-      id: 1,
-      name: "Hemostal-هيموستال",
+      id: 6,
+      name: "Hemostal - هيموستال",
       imageUrl: "/path/to/product-image.png",
       price: 20.0,
-      quantity: 234,
-      status: "متاحة",
-      rating: 4.0,
-      reviews: 1031,
-      orderId: "#59217",
-    },
-    {
-      id: 1,
-      name: "هيموستال",
-      imageUrl: "/path/to/product-image.png",
-      price: 20.0,
-      quantity: 234,
-      status: "متاحة",
-      rating: 4.0,
-      reviews: 1031,
-      orderId: "#59217",
-    },
-    {
-      id: 1,
-      name: "هيموستال",
-      imageUrl: "/path/to/product-image.png",
-      price: 20.0,
-      quantity: 234,
-      status: "متاحة",
-      rating: 4.0,
-      reviews: 1031,
-      orderId: "#59217",
-    },
-    {
-      id: 1,
-      name: "هيموستال",
-      imageUrl: "/path/to/product-image.png",
-      price: 20.0,
-      quantity: 234,
+      quantity: 180,
       status: "مخفية",
-      rating: 4.0,
-      reviews: 1031,
-      orderId: "#59217",
+      rating: 3.9,
+      reviews: 889,
+      orderId: "#59222",
     },
     {
-      id: 1,
-      name: "Hemostal-هيموستال",
+      id: 7,
+      name: "Hemostal - هيموستال",
       imageUrl: "/path/to/product-image.png",
       price: 20.0,
-      quantity: 234,
-      status: "متاحة",
-      rating: 4.5,
-      reviews: 1031,
-      orderId: "#59217",
+      quantity: 180,
+      status: "مخفية",
+      rating: 3.9,
+      reviews: 889,
+      orderId: "#59223",
     },
     {
-      id: 1,
-      name: "Hemostal-هيموستال",
+      id: 8,
+      name: "food",
       imageUrl: "/path/to/product-image.png",
       price: 20.0,
-      quantity: 234,
-      status: "متاحة",
-      rating: 4.0,
-      reviews: 1031,
-      orderId: "#59217",
+      quantity: 180,
+      status: "مخفية",
+      rating: 3.9,
+      reviews: 889,
+      orderId: "#59224",
+    },
+    // أضفت منتجات أخرى مع IDs متتابعة لضمان عدم التكرار
+    {
+      id: 9,
+      name: "food",
+      imageUrl: "/path/to/product-image.png",
+      price: 20.0,
+      quantity: 180,
+      status: "مخفية",
+      rating: 3.9,
+      reviews: 889,
+      orderId: "#59225",
     },
     {
-      id: 1,
-      name: "هيموستال",
+      id: 10,
+      name: "food",
       imageUrl: "/path/to/product-image.png",
       price: 20.0,
-      quantity: 234,
-      status: "متاحة",
-      rating: 4.0,
-      reviews: 1031,
-      orderId: "#59217",
+      quantity: 180,
+      status: "مخفية",
+      rating: 3.9,
+      reviews: 889,
+      orderId: "#59226",
     },
-
-    // ... نسخ أخرى من نفس المنتج لتجربة الترقيم
-    // يمكنك تكرار أو توليد المزيد
+    {
+      id: 11,
+      name: "food",
+      imageUrl: "/path/to/product-image.png",
+      price: 20.0,
+      quantity: 180,
+      status: "مخفية",
+      rating: 3.9,
+      reviews: 889,
+      orderId: "#59227",
+    },
+    {
+      id: 12,
+      name: "food",
+      imageUrl: "/path/to/product-image.png",
+      price: 20.0,
+      quantity: 180,
+      status: "مخفية",
+      rating: 3.9,
+      reviews: 889,
+      orderId: "#59228",
+    },
   ]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(8);
-  const tableWrapperRef = useRef(null);
+  const [productsPerPage, setProductsPerPage] = useState(5);
 
-  // حساب عدد المنتجات الظاهرة حسب ارتفاع الصفحة
+  // ضبط عدد المنتجات المعروضة حسب ارتفاع الشاشة
   useEffect(() => {
-    const calculateVisibleRows = () => {
-      if (!tableWrapperRef.current) return;
-
-      const wrapperHeight = tableWrapperRef.current.offsetHeight;
-      const rowHeight = 60; // تقدير ارتفاع كل صف
-      const maxRows = Math.floor(wrapperHeight / rowHeight);
-      setProductsPerPage(maxRows);
+    const calculateRows = () => {
+      const headerHeight = 260;
+      const rowHeight = 90;
+      const availableHeight = window.innerHeight - headerHeight;
+      const visibleRows = Math.floor(availableHeight / rowHeight);
+      setProductsPerPage(visibleRows > 0 ? visibleRows : 1);
     };
 
-    calculateVisibleRows();
-
-    const resizeObserver = new ResizeObserver(calculateVisibleRows);
-    resizeObserver.observe(document.body);
-
-    return () => resizeObserver.disconnect();
+    calculateRows();
+    window.addEventListener("resize", calculateRows);
+    return () => window.removeEventListener("resize", calculateRows);
   }, []);
 
+  // تصفية المنتجات حسب البحث
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // حساب المنتجات التي يجب عرضها في الصفحة الحالية
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
-
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  // التنقل بين الصفحات
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -204,8 +191,10 @@ function Products() {
         <div className="header-dash-container">
           <div className="products-page-container">
             <h1 className="page-title">المنتجات</h1>
+
             <div className="orders-table-area">
               <div className="new-orders-table-wrapper">
+                {/* Header Actions */}
                 <div className="products-header">
                   <div className="header-actions">
                     <div className="search-bar">
@@ -213,7 +202,10 @@ function Products() {
                         type="text"
                         placeholder="البحث عن منتج"
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={(e) => {
+                          setSearchTerm(e.target.value);
+                          setCurrentPage(1);
+                        }}
                       />
                       <i className="fa-solid fa-search search-icon"></i>
                     </div>
@@ -222,10 +214,9 @@ function Products() {
                     </button>
                   </div>
                 </div>
-                <div
-                  className="orders-table new-orders-table"
-                  ref={tableWrapperRef}
-                >
+
+                {/* Products Table */}
+                <div className="orders-table new-orders-table">
                   <table>
                     <thead>
                       <tr>
@@ -271,10 +262,11 @@ function Products() {
                           <td>
                             <div className="rating">
                               <span className="reviews">
-                                {" "}
-                                ({product.reviews}){" "}
+                                ({product.reviews})
                               </span>
-                              <span className="num"> {product.rating}</span>
+                              <span className="num">
+                                {product.rating.toFixed(1)}
+                              </span>
                               <Star className="star-icon" />
                             </div>
                           </td>
@@ -293,6 +285,8 @@ function Products() {
                     </tbody>
                   </table>
                 </div>
+
+                {/* Pagination */}
                 <div className="pagination">
                   <span>
                     الصفحة رقم <span className="first">{currentPage}</span> من{" "}
@@ -302,14 +296,16 @@ function Products() {
                     <button
                       onClick={() => paginate(currentPage - 1)}
                       disabled={currentPage === 1}
+                      aria-label="الصفحة السابقة"
                     >
-                      <ToRight className="ToRight-icon" />
+                      <ToLeft className="ToLeft-icon" />
                     </button>
                     <button
                       onClick={() => paginate(currentPage + 1)}
                       disabled={currentPage === totalPages}
+                      aria-label="الصفحة التالية"
                     >
-                      <ToLeft className="ToLeft-icon" />
+                      <ToRight className="ToRight-icon" />
                     </button>
                   </div>
                 </div>

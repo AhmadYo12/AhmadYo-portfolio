@@ -20,12 +20,12 @@ const menuItems = [
   {
     label: "الطلبات الجديدة",
     icon: <NewOrder className="neworder-icons side-icons" />,
-    path: "/orders/new",
+    path: "/dashboard/neworder",
   },
   {
     label: "سجل الطلبات",
     icon: <Order className="order-icons side-icons" />,
-    path: "/orders/history",
+    path: "/dashboard/orders",
   },
   {
     label: "المنتجات",
@@ -88,9 +88,9 @@ const Sidebar = () => {
             style={{ cursor: "pointer" }}
           >
             {collapsed ? (
-              <CloseCollapsed className="close-icons" />
-            ) : (
               <Close className="close-icons" />
+            ) : (
+              <CloseCollapsed className="close-icons" />
             )}
           </span>
         </div>
