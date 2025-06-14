@@ -170,7 +170,7 @@ function NewOrders() {
                     fontWeight: "700",
                   }}
                 >
-                  طلبات جديدة
+                  طلبات قيد الانتظار
                 </h1>
                 <div className="orders-table new-orders-table">
                   <table>

@@ -117,7 +117,9 @@ export default function Dashboard() {
                 <div className="new-orders-table-wrapper">
                   <div className="orders-table new-orders-table">
                     <div className="orders-table-header-row">
-                      <span className="orders-table-title">طلبات جديدة</span>
+                      <span className="orders-table-title">
+                        طلبات قيد الانتظار
+                      </span>
                       <span className="orders-table-view-all">
                         مشاهدة الكل
                         <ArrowUpIcon className="arrow-icon" />

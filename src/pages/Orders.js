@@ -115,7 +115,6 @@ function Orders() {
         <div className="header-dash-container">
           <div className="products-page-container">
             <h1 className="page-title">سجل الطلبات</h1>
-
             <div className="orders-table-area">
               <div className="new-orders-table-wrapper">
                 <div className="products-header">
@@ -123,7 +122,7 @@ function Orders() {
                     <div className="search-bar">
                       <input
                         type="text"
-                        placeholder=" البحث عن طلب"
+                        placeholder=" البحث عن طريق رقم طلب"
                         value={searchTerm}
                         onChange={(e) => {
                           setSearchTerm(e.target.value);

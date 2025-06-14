@@ -44,8 +44,6 @@
   color: white;
 }
 
-
-
 .search-bar {
   position: relative;
 }
@@ -192,6 +190,7 @@
 }
 .pagination-buttons button {
   color: black;
+  background-color: #effbff;
   border: 1.5px solid var(--primary-color);
   padding: 5px 10px;
   margin: 0 2px;

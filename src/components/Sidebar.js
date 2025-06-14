@@ -18,12 +18,17 @@ const menuItems = [
     path: "/dashboard",
   },
   {
-    label: "الطلبات الجديدة",
+    label: "طلبات قيد الانتظار",
     icon: <NewOrder className="neworder-icons side-icons" />,
     path: "/dashboard/neworder",
   },
   {
-    label: "سجل الطلبات",
+    label: " سجل الطلبات الحالية",
+    icon: <Order className="order-icons side-icons" />,
+    path: "/dashboard/orders",
+  },
+  {
+    label: "  الطلبات المنتهية",
     icon: <Order className="order-icons side-icons" />,
     path: "/dashboard/orders",
   },
