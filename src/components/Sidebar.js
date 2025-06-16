@@ -7,6 +7,7 @@ import { ReactComponent as CloseCollapsed } from "../assets/icons/Panel-close.sv
 import { ReactComponent as Home } from "../assets/icons/Content-1.svg";
 import { ReactComponent as NewOrder } from "../assets/icons/Content-2.svg";
 import { ReactComponent as Order } from "../assets/icons/google-doc.svg";
+import { ReactComponent as OrdersEnded } from "../assets/icons/document-validation.svg";
 import { ReactComponent as Products } from "../assets/icons/Content-3.svg";
 import { ReactComponent as Sale } from "../assets/icons/Content-4.svg";
 import { ReactComponent as Account } from "../assets/icons/elements.svg";
@@ -29,8 +30,8 @@ const menuItems = [
   },
   {
     label: "  الطلبات المنتهية",
-    icon: <Order className="order-icons side-icons" />,
-    path: "/dashboard/orders",
+    icon: <OrdersEnded className="ordersended-icons side-icons" />,
+    path: "/dashboard/ordersended",
   },
   {
     label: "المنتجات",

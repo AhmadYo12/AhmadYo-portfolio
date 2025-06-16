@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -8,6 +7,7 @@ import CheckAccount from "./pages/CheckAccount";
 import DashboardHome from "./pages/DashboardHome";
 import NewOrder from "./pages/NewOrders";
 import Orders from "./pages/Orders";
+import OrdersEnded from "./pages/OrdersEnded";
 import Products from "./pages/Products";
 import Sales from "./pages/Sales";
 import Account from "./pages/Account";
@@ -30,6 +30,7 @@ export default function App() {
         <Route path="/dashboard" element={<DashboardHome />} />
         <Route path="/dashboard/neworder" element={<NewOrder />} />
         <Route path="/dashboard/orders" element={<Orders />} />
+        <Route path="/dashboard/ordersended" element={<OrdersEnded />} />
         <Route path="/dashboard/products" element={<Products />} />
         <Route path="/dashboard/sales" element={<Sales />} />
         <Route path="/dashboard/account" element={<Account />} />

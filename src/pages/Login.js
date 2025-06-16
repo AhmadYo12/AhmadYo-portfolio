@@ -1,11 +1,14 @@
 // Login.js
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/base.css";
 import "../styles/login.css";
 import logo from "../assets/logo.png";
 import sideImage from "../assets/L.png";
 import axios from "axios";
+
+// تفعيل إرسال الكوكيز مع كل طلب
+axios.defaults.withCredentials = true;
 
 export default function Login() {
   const [phone, setPhone] = useState("");
@@ -36,18 +39,17 @@ export default function Login() {
     if (!validate()) return;
 
     try {
+      // 1. طلب CSRF Cookie من السيرفر
+      await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
+
+      // 2. إرسال بيانات تسجيل الدخول
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/Supplierlogin",
+        "http://127.0.0.1:8000/api/supplier/login",
         { phone, password }
       );
 
       if (response.data.status === "success") {
-        const token = response.data.access_token;
-        const supplier = response.data.Supplier;
-
-        localStorage.setItem("token", token);
-        localStorage.setItem("supplier", JSON.stringify(supplier));
-
+        // ✅ الجلسة تم إنشاؤها تلقائيًا في الكوكيز
         navigate("/dashboard");
       }
     } catch (error) {

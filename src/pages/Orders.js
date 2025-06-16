@@ -8,47 +8,119 @@ import { ReactComponent as ToRight } from "../assets/icons/Icon-2.svg";
 import { ReactComponent as ToLeft } from "../assets/icons/Icon-1.svg";
 import { ReactComponent as Filter } from "../assets/icons/filter-list-1.svg";
 
-// بيانات وهمية
 const dummyOrders = [
   {
-    id: 59217,
+    id: 557,
     customerName: "د. أحمد الخشي",
-    status: "مرفوض من قبلك",
+    status: "قيد التوصيل",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-10",
   },
   {
+    id: 57,
+    customerName: "د. أحمد الخشي",
+    status: "يرجى تجهيز الطلب",
+    productCount: 3,
+    dateTime: "8:25 PM / 2025-04-10",
+  },
+
+  {
     id: 59218,
     customerName: "د. أحمد الخشي",
-    status: "تم التوصيل بنجاح",
+    status: "جاري البحث عن مراسل",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-10",
   },
   {
     id: 59219,
     customerName: "د. أحمد الخشي",
-    status: "قيد التجهيز",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-10",
   },
   {
     id: 59220,
     customerName: "د. أحمد الخشي",
-    status: "تم تسليم الطلب للمراسل",
+    status: "جاري المعالجة",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-10",
   },
   {
-    id: 59221,
+    id: 557,
     customerName: "د. أحمد الخشي",
-    status: "تم الإلغاء من قبل الزبون",
+    status: "قيد التوصيل",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-10",
   },
   {
-    id: 59222,
+    id: 57,
     customerName: "د. أحمد الخشي",
-    status: "تم تسليم الطلب للمراسل",
+    status: "يرجى تجهيز الطلب",
+    productCount: 3,
+    dateTime: "8:25 PM / 2025-04-10",
+  },
+
+  {
+    id: 59218,
+    customerName: "د. أحمد الخشي",
+    status: "جاري البحث عن مراسل",
+    productCount: 3,
+    dateTime: "8:25 PM / 2025-04-10",
+  },
+  {
+    id: 59219,
+    customerName: "د. أحمد الخشي",
+    status: "بانتظار الموافقة من قبلك",
+    productCount: 3,
+    dateTime: "8:25 PM / 2025-04-10",
+  },
+  {
+    id: 59220,
+    customerName: "د. أحمد الخشي",
+    status: "جاري المعالجة",
+    productCount: 3,
+    dateTime: "8:25 PM / 2025-04-10",
+  },
+  {
+    id: 557,
+    customerName: "د. أحمد الخشي",
+    status: "قيد التوصيل",
+    productCount: 3,
+    dateTime: "8:25 PM / 2025-04-10",
+  },
+  {
+    id: 57,
+    customerName: "د. أحمد الخشي",
+    status: "يرجى تجهيز الطلب",
+    productCount: 3,
+    dateTime: "8:25 PM / 2025-04-10",
+  },
+
+  {
+    id: 520,
+    customerName: "د. أحمد الخشي",
+    status: "جاري المعالجة",
+    productCount: 3,
+    dateTime: "8:25 PM / 2025-04-10",
+  },
+  {
+    id: 598,
+    customerName: "د. أحمد الخشي",
+    status: "جاري البحث عن مراسل",
+    productCount: 3,
+    dateTime: "8:25 PM / 2025-04-10",
+  },
+  {
+    id: 519,
+    customerName: "د. أحمد الخشي",
+    status: "بانتظار الموافقة من قبلك",
+    productCount: 3,
+    dateTime: "8:25 PM / 2025-04-10",
+  },
+  {
+    id: 592,
+    customerName: "د. أحمد الخشي",
+    status: "جاري المعالجة",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-10",
   },
@@ -92,16 +164,16 @@ function Orders() {
 
   const getBadgeClass = (status) => {
     switch (status) {
-      case "مرفوض من قبلك":
-        return "rejected";
-      case "تم التوصيل بنجاح":
-        return "delivered";
-      case "قيد التجهيز":
+      case "بانتظار الموافقة من قبلك":
+        return "awaiting-approval";
+      case "جاري المعالجة":
+        return "processing";
+      case "جاري البحث عن مراسل":
+        return "searching-courier";
+      case "يرجى تجهيز الطلب":
         return "preparing";
-      case "تم تسليم الطلب للمراسل":
-        return "to-courier";
-      case "تم الإلغاء من قبل الزبون":
-        return "canceled-by-customer";
+      case "قيد التوصيل":
+        return "in-transit";
       default:
         return "waiting";
     }
@@ -114,7 +186,7 @@ function Orders() {
         <Sidebar />
         <div className="header-dash-container">
           <div className="products-page-container">
-            <h1 className="page-title">سجل الطلبات</h1>
+            <h1 className="page-title"> سجل الطلبات الحالية</h1>
             <div className="orders-table-area">
               <div className="new-orders-table-wrapper">
                 <div className="products-header">
@@ -131,7 +203,7 @@ function Orders() {
                       />
                       <i className="fa-solid fa-search search-icon"></i>
                     </div>
-                    <button className=" btn-filter">
+                    <button className="btn-filter">
                       تصفية <Filter className="filter-icon" />
                     </button>
                   </div>

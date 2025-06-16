@@ -143,7 +143,7 @@ export default function Dashboard() {
                             <td className="name-doctor">د. أحمد الخشي</td>
                             <td className="state-order">
                               <span className="badge waiting ">
-                                بانتظار القبول
+                                بانتظار الموافقة من قبلك
                               </span>
                             </td>
                             <td className="orders-num">3</td>

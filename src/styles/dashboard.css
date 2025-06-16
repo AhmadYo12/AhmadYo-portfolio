@@ -273,7 +273,7 @@
   font-size: 12px;
   border: none;
   padding: 5px;
-  width: 90%;
+  width: 80%;
   height: 38px;
   border-radius: 6px;
   cursor: pointer;
@@ -665,8 +665,8 @@
 /* Add specific width for products count column */
 .new-orders-table th:nth-child(4),
 .new-orders-table td:nth-child(4) {
-  width: 90px;
-  min-width: 80px;
+  width: 50px;
+  min-width: 50px;
 }
 
 /* Apply Plus Jakarta Sans font only to the numbers in products count column */
@@ -677,8 +677,8 @@
 /* Make action buttons column wider */
 .new-orders-table th:last-child,
 .new-orders-table td:last-child {
-  min-width: 180px;
-  width: 180px;
+  min-width: 90px;
+  width: 120px;
 }
 
 /* Apply Plus Jakarta Sans font to order number and date/time columns */
@@ -698,7 +698,7 @@
 
 .orders-table th:nth-child(1),
 .orders-table td:nth-child(1) {
-  width: 30%; /* يمكنك التعديل حسب الحاجة */
+  width: 10%; /* يمكنك التعديل حسب الحاجة */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -708,12 +708,13 @@
 .orders-table th:nth-child(2),
 .orders-table td:nth-child(2),
 .orders-table th:nth-child(3),
-.orders-table td:nth-child(3),
+.orders-table td:nth-child(3) {
+  width: 15%;
+}
 .orders-table th:nth-child(4),
 .orders-table td:nth-child(4) {
-  width: 15%; /* متساوية */
+  width: 9%;
 }
-
 /* عمود أزرار الإجراء أكبر */
 .orders-table th:nth-child(5),
 .orders-table td:nth-child(5) {
@@ -733,8 +734,8 @@ td:nth-child(1) {
 th.name-doctor,
 td:nth-child(2) {
   width: 120px;
-  min-width: 120px;
-  max-width: 140px;
+  min-width: 100px;
+  max-width: 110px;
   white-space: nowrap;
 }
 
@@ -750,9 +751,9 @@ td:nth-child(3) {
 /* عمود الوقت والتاريخ أكبر */
 th.date-time,
 td.date-time {
-  width: 150px;
-  min-width: 150px;
-  max-width: 190px;
+  width: 130px;
+  min-width: 130px;
+  max-width: 140px;
   white-space: nowrap;
 }
 

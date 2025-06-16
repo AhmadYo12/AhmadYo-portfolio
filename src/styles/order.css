@@ -2,10 +2,6 @@
   background-color: white;
   border: 1.5px solid var(--primary-color);
   border-radius: 12px;
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  -ms-border-radius: 12px;
-  -o-border-radius: 12px;
   color: var(--text-color-2);
   font-weight: 700;
   font-size: 12px;
@@ -14,10 +10,12 @@
   padding: 8px 10px;
   cursor: pointer;
 }
+
 .filter-icon {
   color: var(--text-color-2);
   margin-right: 5px;
 }
+
 .badge {
   padding: 1px 8px;
   border-radius: 4px;
@@ -26,38 +24,56 @@
   border: 1.5px solid transparent;
   font-size: 12px;
 }
-
-/* الحالة: مرفوض من قبلك */
-.badge.rejected {
-  background-color: #fce7f3;
-  color: #9d174d;
-  border-color: #f9a8d4;
+.badge.awaiting-approval {
+  background-color: #ffdcdc;
+  color: #ff0000;
+  border: 1px solid #ff0000;
 }
 
-/* الحالة: تم التوصيل بنجاح */
-.badge.delivered {
-  background-color: #d1fae5;
-  color: #065f46;
-  border-color: #6ee7b7;
+.badge.processing {
+  background-color: #fef9c3;
+  color: #a16207;
+  border: 1px solid #facc15;
 }
 
-/* الحالة: قيد التجهيز */
+.badge.searching-courier {
+  background-color: #e0f7fd;
+  color: var(--primary-color); /* عدّل المتغير حسب اللون الأساسي للمشروع */
+  border: 1px solid var(--primary-color);
+}
+
 .badge.preparing {
   background-color: #dbeafe;
   color: #1e40af;
-  border-color: #93c5fd;
+  border: 1px solid #93c5fd;
 }
 
-/* الحالة: تم تسليم الطلب للمراسل */
-.badge.to-courier {
-  background-color: #dbf5ff;
-  color: #0c4a6e;
-  border-color: #7dd3fc;
+.badge.in-transit {
+  background-color: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #f97316;
 }
 
-/* الحالة: تم الإلغاء من قبل الزبون */
+.badge.rejected {
+  background-color: #ffe5e5;
+  color: #b71c1c;
+  border: 1px solid #d32f2f;
+}
+
 .badge.canceled-by-customer {
-  background-color: #fef3c7;
-  color: #92400e;
-  border-color: #fcd34d;
+  background-color: #fce7f3;
+  color: #9d174d;
+  border: 1px solid #9d174d;
+}
+
+.badge.delivered {
+  background-color: #e6f4ea;
+  color: #1f6f3b;
+  border: 1px solid #38c172;
+}
+
+/* تنسيق خاص لعمود الوقت والتاريخ */
+.orders-table td.date-time {
+  font-size: 13px;
+  color: #666;
 }

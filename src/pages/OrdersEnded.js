@@ -1,125 +1,75 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/HeaderDashboard";
 import Sidebar from "../components/Sidebar";
-import "../styles/dashboard.css"; // Assuming styles are similar or shared
-import "../styles/neworder.css";
-import { ReactComponent as ToRight } from "../assets/icons/Icon-2.svg"; // سهم لليمين (التالي)
-import { ReactComponent as ToLeft } from "../assets/icons/Icon-1.svg"; // سهم لليسار (السابق)
-import { ReactComponent as Warning } from "../assets/icons/warning 1.svg";
+import "../styles/dashboard.css";
+import "../styles/Products.css";
+import "../styles/order.css";
+import { ReactComponent as ToRight } from "../assets/icons/Icon-2.svg";
+import { ReactComponent as ToLeft } from "../assets/icons/Icon-1.svg";
+import { ReactComponent as Filter } from "../assets/icons/filter-list-1.svg";
 
-// Dummy data for new orders
 const dummyOrders = [
   {
-    id: 59217,
+    id: 5523137,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار الموافقة من قبلك",
+    status: "مرفوض من قبلك",
     productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
+    dateTime: "8:25 PM / 2025-04-10",
   },
   {
-    id: 59218,
+    id: 592887,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار الموافقة من قبلك",
+    status: "تم التوصيل بنجاح",
     productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
+    dateTime: "8:25 PM / 2025-04-10",
   },
   {
-    id: 59219,
+    id: 3213,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "تم الإلغاء من قبل الطبيب",
     productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
+    dateTime: "8:25 PM / 2025-04-10",
   },
   {
-    id: 59220,
+    id: 5523137,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "مرفوض من قبلك",
     productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
+    dateTime: "8:25 PM / 2025-04-10",
   },
   {
-    id: 59221,
+    id: 592887,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "تم التوصيل بنجاح",
     productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
+    dateTime: "8:25 PM / 2025-04-10",
   },
   {
-    id: 59222,
+    id: 3213,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "تم الإلغاء من قبل الطبيب",
     productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
+    dateTime: "8:25 PM / 2025-04-10",
   },
   {
-    id: 59223,
+    id: 5523137,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "مرفوض من قبلك",
     productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
-  },
-  {
-    id: 59224,
-    customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
-    productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
-  },
-  {
-    id: 59225,
-    customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
-    productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
-  },
-  {
-    id: 59226,
-    customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
-    productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
-  },
-  {
-    id: 59227,
-    customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
-    productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
-  },
-  {
-    id: 59228,
-    customerName: "د. أحمد الخشي",
-    status: "بانتظار الموافقة من قبلك",
-    productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
-  },
-  {
-    id: 21212,
-    customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
-    productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
-  },
-  {
-    id: 212,
-    customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
-    productCount: 3,
-    dateTime: "8:25 PM / 2025-04-01",
+    dateTime: "8:25 PM / 2025-04-10",
   },
 ];
 
-function NewOrders() {
+function OrdersEnded() {
   const [orders, setOrders] = useState(dummyOrders);
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [ordersPerPage, setOrdersPerPage] = useState(8); // Initial value, will be calculated
+  const [ordersPerPage, setOrdersPerPage] = useState(8);
 
-  // Calculate number of rows per page based on screen height
   useEffect(() => {
     const calculateRows = () => {
-      // Adjust these values based on your actual header and row heights
-      const headerHeight = 460; // Approximate height of header and card area
-      const rowHeight = 60; // Approximate height of a table row
+      const headerHeight = 380;
+      const rowHeight = 60;
       const availableHeight = window.innerHeight - headerHeight;
       const visibleRows = Math.floor(availableHeight / rowHeight);
       setOrdersPerPage(visibleRows > 0 ? visibleRows : 1);
@@ -130,15 +80,34 @@ function NewOrders() {
     return () => window.removeEventListener("resize", calculateRows);
   }, []);
 
-  // Get current orders
+  const filteredOrders = orders.filter((order) =>
+    Object.values(order).some((value) =>
+      String(value).toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
+  const currentOrders = filteredOrders.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+  const totalPages = Math.ceil(filteredOrders.length / ordersPerPage);
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const totalPages = Math.ceil(orders.length / ordersPerPage);
+  const getBadgeClass = (status) => {
+    switch (status) {
+      case "مرفوض من قبلك":
+        return "rejected";
+      case "تم الإلغاء من قبل الطبيب":
+        return "canceled-by-customer";
+      case "تم التوصيل بنجاح":
+        return "delivered";
+      default:
+        return "waiting";
+    }
+  };
 
   return (
     <div className="dashboard-container">
@@ -147,31 +116,29 @@ function NewOrders() {
         <Sidebar />
         <div className="header-dash-container">
           <div className="products-page-container">
-            {/* Pending Orders Card */}
-            <div className="card red card-waiting grid-card neworder-card ">
-              <div className="card-row card-row-bottom card-row-order">
-                <Warning className="waening-icon" />
-                <span className="card-value red-value red-value-order">
-                  20<span> طلباً </span>
-                </span>
-                <span className="card-trend red-trend">قيد الانتظار</span>
-              </div>
-            </div>
-
+            <h1 className="page-title">الطلبات المنتهية</h1>
             <div className="orders-table-area">
               <div className="new-orders-table-wrapper">
-                <h1
-                  className="page-title"
-                  style={{
-                    textAlign: "center",
-                    marginBottom: "0",
-                    marginTop: "10px",
-                    fontSize: "26px",
-                    fontWeight: "700",
-                  }}
-                >
-                  طلبات قيد الانتظار
-                </h1>
+                <div className="products-header">
+                  <div className="header-actions">
+                    <div className="search-bar">
+                      <input
+                        type="text"
+                        placeholder="البحث عن طريق رقم طلب"
+                        value={searchTerm}
+                        onChange={(e) => {
+                          setSearchTerm(e.target.value);
+                          setCurrentPage(1);
+                        }}
+                      />
+                      <i className="fa-solid fa-search search-icon"></i>
+                    </div>
+                    <button className="btn-filter">
+                      تصفية <Filter className="filter-icon" />
+                    </button>
+                  </div>
+                </div>
+
                 <div className="orders-table new-orders-table">
                   <table>
                     <thead>
@@ -190,7 +157,9 @@ function NewOrders() {
                           <td className="id-order">{order.id}</td>
                           <td className="name-doctor">{order.customerName}</td>
                           <td className="state-order">
-                            <span className={`badge waiting`}>
+                            <span
+                              className={`badge ${getBadgeClass(order.status)}`}
+                            >
                               {order.status}
                             </span>
                           </td>
@@ -207,7 +176,6 @@ function NewOrders() {
                   </table>
                 </div>
 
-                {/* Pagination */}
                 <div className="pagination">
                   <span>
                     الصفحة رقم <span className="first">{currentPage}</span> من{" "}
@@ -217,14 +185,12 @@ function NewOrders() {
                     <button
                       onClick={() => paginate(currentPage - 1)}
                       disabled={currentPage === 1}
-                      aria-label="الصفحة السابقة"
                     >
                       <ToLeft className="ToLeft-icon" />
                     </button>
                     <button
                       onClick={() => paginate(currentPage + 1)}
                       disabled={currentPage === totalPages}
-                      aria-label="الصفحة التالية"
                     >
                       <ToRight className="ToRight-icon" />
                     </button>
@@ -239,4 +205,4 @@ function NewOrders() {
   );
 }
 
-export default NewOrders;
+export default OrdersEnded;
