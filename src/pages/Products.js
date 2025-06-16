@@ -8,7 +8,7 @@ import { ReactComponent as Edit } from "../assets/icons/edit-03.svg";
 import { ReactComponent as Star } from "../assets/icons/Vector-1.svg";
 import { ReactComponent as ToRight } from "../assets/icons/Icon-2.svg"; // سهم لليمين (التالي)
 import { ReactComponent as ToLeft } from "../assets/icons/Icon-1.svg"; // سهم لليسار (السابق)
-
+import { ReactComponent as Filter } from "../assets/icons/filter-list-1.svg";
 function Products() {
   // بيانات المنتجات مع تصحيح IDs المكررة
   const [products] = useState([
@@ -209,9 +209,14 @@ function Products() {
                       />
                       <i className="fa-solid fa-search search-icon"></i>
                     </div>
-                    <button className="btn btn-add-product">
-                      إضافة منتج جديد <Add className="add-icon" />
-                    </button>
+                    <div className="left-buttons">
+                      <button className="btn-filter bt-filter">
+                        تصفية <Filter className="filter-icon" />
+                      </button>
+                      <button className="btn btn-add-product">
+                        إضافة منتج جديد <Add className="add-icon" />
+                      </button>
+                    </div>
                   </div>
                 </div>
 
