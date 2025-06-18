@@ -1,4 +1,4 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/HeaderDashboard";
 import Sidebar from "../components/Sidebar";
 import "../styles/dashboard.css";
@@ -39,6 +39,12 @@ const cardsData = [
 ];
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
+  const handleViewAllPendingOrders = () => {
+    navigate("/dashboard/neworder");
+  };
+
   return (
     <div className="dashboard-container">
       <Header />
@@ -120,7 +126,11 @@ export default function Dashboard() {
                       <span className="orders-table-title">
                         طلبات قيد الانتظار
                       </span>
-                      <span className="orders-table-view-all">
+                      <span
+                        className="orders-table-view-all"
+                        onClick={handleViewAllPendingOrders}
+                        style={{ cursor: "pointer" }}
+                      >
                         مشاهدة الكل
                         <ArrowUpIcon className="arrow-icon" />
                       </span>

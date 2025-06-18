@@ -11,7 +11,7 @@ import OrdersEnded from "./pages/OrdersEnded";
 import Products from "./pages/Products";
 import Sales from "./pages/Sales";
 import Account from "./pages/Account";
-import HomeOrders from "./pages/HomeOrders";
+import HomeOrders from "./pages/HomeOrders"; // صفحة تفاصيل الطلب
 
 import "./styles/base.css";
 

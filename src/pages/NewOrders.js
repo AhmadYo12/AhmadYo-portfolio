@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/HeaderDashboard";
 import Sidebar from "../components/Sidebar";
-import "../styles/dashboard.css"; // Assuming styles are similar or shared
+import "../styles/dashboard.css";
 import "../styles/neworder.css";
-import { ReactComponent as ToRight } from "../assets/icons/Icon-2.svg"; // سهم لليمين (التالي)
-import { ReactComponent as ToLeft } from "../assets/icons/Icon-1.svg"; // سهم لليسار (السابق)
+import { ReactComponent as ToRight } from "../assets/icons/Icon-2.svg";
+import { ReactComponent as ToLeft } from "../assets/icons/Icon-1.svg";
 import { ReactComponent as Warning } from "../assets/icons/warning 1.svg";
 
-// Dummy data for new orders
 const dummyOrders = [
   {
     id: 59217,
@@ -26,63 +26,63 @@ const dummyOrders = [
   {
     id: 59219,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-01",
   },
   {
     id: 59220,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-01",
   },
   {
     id: 59221,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-01",
   },
   {
     id: 59222,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-01",
   },
   {
     id: 59223,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-01",
   },
   {
     id: 59224,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-01",
   },
   {
     id: 59225,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-01",
   },
   {
     id: 59226,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-01",
   },
   {
     id: 59227,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-01",
   },
@@ -96,14 +96,14 @@ const dummyOrders = [
   {
     id: 21212,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-01",
   },
   {
     id: 212,
     customerName: "د. أحمد الخشي",
-    status: "بانتظار القبول",
+    status: "بانتظار الموافقة من قبلك",
     productCount: 3,
     dateTime: "8:25 PM / 2025-04-01",
   },
@@ -112,14 +112,13 @@ const dummyOrders = [
 function NewOrders() {
   const [orders, setOrders] = useState(dummyOrders);
   const [currentPage, setCurrentPage] = useState(1);
-  const [ordersPerPage, setOrdersPerPage] = useState(8); // Initial value, will be calculated
+  const [ordersPerPage, setOrdersPerPage] = useState(8);
+  const navigate = useNavigate();
 
-  // Calculate number of rows per page based on screen height
   useEffect(() => {
     const calculateRows = () => {
-      // Adjust these values based on your actual header and row heights
-      const headerHeight = 460; // Approximate height of header and card area
-      const rowHeight = 60; // Approximate height of a table row
+      const headerHeight = 460;
+      const rowHeight = 60;
       const availableHeight = window.innerHeight - headerHeight;
       const visibleRows = Math.floor(availableHeight / rowHeight);
       setOrdersPerPage(visibleRows > 0 ? visibleRows : 1);
@@ -130,14 +129,11 @@ function NewOrders() {
     return () => window.removeEventListener("resize", calculateRows);
   }, []);
 
-  // Get current orders
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
   const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   const totalPages = Math.ceil(orders.length / ordersPerPage);
 
   return (
@@ -147,7 +143,6 @@ function NewOrders() {
         <Sidebar />
         <div className="header-dash-container">
           <div className="products-page-container">
-            {/* Pending Orders Card */}
             <div className="card red card-waiting grid-card neworder-card ">
               <div className="card-row card-row-bottom card-row-order">
                 <Warning className="waening-icon" />
@@ -197,7 +192,12 @@ function NewOrders() {
                           <td className="orders-num">{order.productCount}</td>
                           <td className="date-time">{order.dateTime}</td>
                           <td>
-                            <button className="btn-details show-more">
+                            <button
+                              className="btn-details show-more"
+                              onClick={() =>
+                                navigate(`/dashboard/order-details/${order.id}`)
+                              }
+                            >
                               عرض التفاصيل
                             </button>
                           </td>
@@ -207,7 +207,6 @@ function NewOrders() {
                   </table>
                 </div>
 
-                {/* Pagination */}
                 <div className="pagination">
                   <span>
                     الصفحة رقم <span className="first">{currentPage}</span> من{" "}
