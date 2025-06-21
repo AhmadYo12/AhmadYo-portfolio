@@ -25,9 +25,13 @@ export default function ForgotPassword() {
     setError("");
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/sendSupplier-reset-otp", {
-        phone,
-      });
+      await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/supplier/send-reset-otp",
+        {
+          phone,
+        }
+      );
 
       if (response.data.status === "success") {
         // التوجيه إلى صفحة التحقق من الرمز

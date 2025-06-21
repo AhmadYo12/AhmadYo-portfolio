@@ -38,17 +38,20 @@ export default function NewPassword() {
     if (hasError) return;
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/resetSupplier-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          phone,
-          password: newPassword,
-          password_confirmation: confirmPassword,
-        }),
-      });
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/supplier/reset-password",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            phone,
+            password: newPassword,
+            password_confirmation: confirmPassword,
+          }),
+        }
+      );
 
       const data = await response.json();
 
@@ -92,10 +95,16 @@ export default function NewPassword() {
                   className="toggle-password"
                   onClick={() => setShowNewPassword(!showNewPassword)}
                 >
-                  <i className={`fa-regular ${showNewPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                  <i
+                    className={`fa-regular ${
+                      showNewPassword ? "fa-eye-slash" : "fa-eye"
+                    }`}
+                  ></i>
                 </span>
               </div>
-              {newPasswordError && <div className="error">{newPasswordError}</div>}
+              {newPasswordError && (
+                <div className="error">{newPasswordError}</div>
+              )}
             </div>
 
             {/* تأكيد كلمة المرور */}
@@ -119,10 +128,16 @@ export default function NewPassword() {
                   className="toggle-password"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
-                  <i className={`fa-regular ${showConfirmPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                  <i
+                    className={`fa-regular ${
+                      showConfirmPassword ? "fa-eye-slash" : "fa-eye"
+                    }`}
+                  ></i>
                 </span>
               </div>
-              {confirmPasswordError && <div className="error">{confirmPasswordError}</div>}
+              {confirmPasswordError && (
+                <div className="error">{confirmPasswordError}</div>
+              )}
             </div>
 
             {submitError && <div className="error">{submitError}</div>}
@@ -138,7 +153,8 @@ export default function NewPassword() {
         <img src={sideImage} alt="Dento visual" className="side-image" />
         <div className="left-title">Dento</div>
         <div className="left-p">
-          تابع مبيعاتك، أدر منتجاتك، وراقب الطلبات بسهولة عبر لوحة التحكم الخاصة بك على Dento
+          تابع مبيعاتك، أدر منتجاتك، وراقب الطلبات بسهولة عبر لوحة التحكم الخاصة
+          بك على Dento
         </div>
       </div>
     </div>

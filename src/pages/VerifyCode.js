@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/base.css";
@@ -23,12 +23,13 @@ export default function VerifyCode() {
   const storageKey = `resendData_${phone}`;
 
   const getWaitTime = (count) => {
-    if (count < 2) return 60;
-    if (count < 5) return 15 * 60;
+    if (count === 1) return 15;
+    if (count === 2) return 60;
+    if (count === 3) return 15 * 60;
     return 24 * 60 * 60;
   };
 
-  const startTimer = (duration) => {
+  const startTimer = useCallback((duration) => {
     setTimer(duration);
     setIsResendDisabled(true);
 
@@ -51,7 +52,7 @@ export default function VerifyCode() {
         return newTime;
       });
     }, 1000);
-  };
+  }, [storageKey, resendCount]);
 
   useEffect(() => {
     if (!phone) return;
@@ -74,13 +75,17 @@ export default function VerifyCode() {
         localStorage.removeItem(storageKey);
       }
     }
-  }, [phone]);
+  }, [phone, startTimer, storageKey]);
 
   const handleResend = async () => {
     if (isResendDisabled) return;
 
     try {
-      await axios.post("http://127.0.0.1:8000/api/resend-password-reset-otp");
+      await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
+      await axios.post(
+        "http://127.0.0.1:8000/api/supplier/password/resend-otp",
+        { phone }
+      );
 
       const newCount = resendCount + 1;
       setResendCount(newCount);
@@ -95,7 +100,8 @@ export default function VerifyCode() {
 
       startTimer(waitTime);
     } catch (err) {
-      alert("حدث خطأ أثناء إعادة إرسال الرمز. حاول مجدداً.");
+      const errorMessage = err.response?.data?.message || "حدث خطأ أثناء إعادة إرسال الرمز. حاول مجدداً.";
+      setError(errorMessage);
     }
   };
 
@@ -128,9 +134,14 @@ export default function VerifyCode() {
     setError("");
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/verifyOtp", {
-        otp: fullCode,
-      });
+      await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/supplier/password/verify-otp",
+        {
+          otp: fullCode,
+          phone
+        }
+      );
 
       if (response.data.status === "success") {
         navigate("/new-password", { state: { phone } });
@@ -196,6 +207,7 @@ export default function VerifyCode() {
                   value={digit}
                   onChange={(e) => handleChange(i, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(i, e)}
+                  autoComplete="off"
                 />
               ))}
             </div>
