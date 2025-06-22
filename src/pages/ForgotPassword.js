@@ -112,7 +112,14 @@ export default function ForgotPassword() {
               style={{ marginTop: "35px" }}
               disabled={loading}
             >
-              {loading ? "جاري الإرسال..." : "إرسال الرمز"}
+              {loading ? (
+                <>
+                  <i className="fa fa-spinner fa-spin" style={{marginLeft: '8px'}}></i>
+                  جاري الإرسال...
+                </>
+              ) : (
+                "إرسال الرمز"
+              )}
             </button>
             <Link
               to="/login"

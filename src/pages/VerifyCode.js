@@ -14,6 +14,7 @@ export default function VerifyCode() {
 
   const [code, setCode] = useState(["", "", "", "", ""]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [resendCount, setResendCount] = useState(0);
   const [isResendDisabled, setIsResendDisabled] = useState(false);
@@ -143,6 +144,7 @@ export default function VerifyCode() {
       return;
     }
 
+    setLoading(true);
     setError("");
 
     try {
@@ -232,8 +234,19 @@ export default function VerifyCode() {
               type="submit"
               className="login-button"
               style={{ marginTop: "35px" }}
+              disabled={loading}
             >
-              تحقق
+              {loading ? (
+                <>
+                  <i
+                    className="fa fa-spinner fa-spin"
+                    style={{ marginLeft: "8px" }}
+                  ></i>
+                  جاري التحقق...
+                </>
+              ) : (
+                "تحقق"
+              )}
             </button>
           </form>
 

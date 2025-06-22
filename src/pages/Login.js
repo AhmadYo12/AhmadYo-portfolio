@@ -16,6 +16,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [loginError, setLoginError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const isValidPhone = /^09\d{8}$/.test(phone);
@@ -38,6 +39,9 @@ export default function Login() {
     e.preventDefault();
     if (!validate()) return;
 
+    setLoading(true);
+    setLoginError("");
+
     try {
       // 1. طلب CSRF Cookie من السيرفر
       await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
@@ -58,6 +62,8 @@ export default function Login() {
       } else {
         setLoginError("حدث خطأ غير متوقع، يرجى المحاولة لاحقاً");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -126,8 +132,15 @@ export default function Login() {
               نسيت كلمة المرور؟
             </Link>
 
-            <button type="submit" className="login-button">
-              تسجيل الدخول
+            <button type="submit" className="login-button" disabled={loading}>
+              {loading ? (
+                <>
+                  <i className="fa fa-spinner fa-spin" style={{marginLeft: '8px'}}></i>
+                  جاري تسجيل الدخول...
+                </>
+              ) : (
+                "تسجيل الدخول"
+              )}
             </button>
           </form>
         </div>
