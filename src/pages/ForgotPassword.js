@@ -9,6 +9,11 @@ import sideImage from "../assets/L.png";
 export default function ForgotPassword() {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
+
+  // إضافة console.log لتشخيص الاستجابة
+  const logResponse = (response) => {
+    console.log("Server response:", response);
+  };
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -27,7 +32,7 @@ export default function ForgotPassword() {
     try {
       await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/supplier/send-reset-otp",
+        "http://127.0.0.1:8000/api/supplier/password/send-otp",
         {
           phone,
         }
@@ -40,8 +45,33 @@ export default function ForgotPassword() {
         setError(response.data.message || "حدث خطأ ما");
       }
     } catch (err) {
-      if (err.response && err.response.data?.errors?.phone) {
-        setError(err.response.data.errors.phone[0]);
+      console.log("Error details:", err.response?.data); // للتشخيص
+
+      if (err.response?.status === 422) {
+        // التحقق من وجود أخطاء محددة في الحقول
+        if (err.response.data?.errors?.phone) {
+          setError(err.response.data.errors.phone[0]);
+        }
+        // التحقق من رسالة الخطأ العامة
+        else if (err.response.data?.message) {
+          const message = err.response.data.message;
+          if (
+            message.includes("فشل في التحقق من البيانات") ||
+            message.includes("validation")
+          ) {
+            setError("لم يتم إنشاء حساب بهذا الرقم .");
+          } else {
+            setError(message);
+          }
+        }
+        // رسالة افتراضية لخطأ 422
+        else {
+          setError(" لم يتم إنشاء حساب بهذا الرقم .");
+        }
+      }
+      // أخطاء أخرى
+      else if (err.response?.data?.message) {
+        setError(err.response.data.message);
       } else {
         setError("فشل في الاتصال بالخادم. حاول لاحقاً.");
       }

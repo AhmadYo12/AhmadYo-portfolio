@@ -21,6 +21,7 @@ export default function VerifyCode() {
   const timerRef = useRef(null);
 
   const storageKey = `resendData_${phone}`;
+  const countKey = `resendCount_${phone}`;
 
   const getWaitTime = (count) => {
     if (count === 1) return 15;
@@ -29,40 +30,47 @@ export default function VerifyCode() {
     return 24 * 60 * 60;
   };
 
-  const startTimer = useCallback((duration) => {
-    setTimer(duration);
-    setIsResendDisabled(true);
+  const startTimer = useCallback(
+    (duration) => {
+      setTimer(duration);
+      setIsResendDisabled(true);
 
-    timerRef.current = setInterval(() => {
-      setTimer((prev) => {
-        if (prev <= 1) {
-          clearInterval(timerRef.current);
-          setIsResendDisabled(false);
-          localStorage.removeItem(storageKey);
-          return 0;
-        }
-        const newTime = prev - 1;
+      timerRef.current = setInterval(() => {
+        setTimer((prev) => {
+          if (prev <= 1) {
+            clearInterval(timerRef.current);
+            setIsResendDisabled(false);
+            localStorage.removeItem(storageKey); // بس نحذف بيانات العداد
+            return 0;
+          }
+          const newTime = prev - 1;
 
-        const resendData = {
-          count: resendCount,
-          expireAt: Date.now() + newTime * 1000,
-        };
-        localStorage.setItem(storageKey, JSON.stringify(resendData));
+          const resendData = {
+            expireAt: Date.now() + newTime * 1000,
+          };
+          localStorage.setItem(storageKey, JSON.stringify(resendData));
 
-        return newTime;
-      });
-    }, 1000);
-  }, [storageKey, resendCount]);
+          return newTime;
+        });
+      }, 1000);
+    },
+    [storageKey]
+  );
 
   useEffect(() => {
     if (!phone) return;
 
+    // تحميل عدد المحاولات منفصلاً
+    const savedCount = localStorage.getItem(countKey);
+    if (savedCount) {
+      setResendCount(parseInt(savedCount, 10));
+    }
+
+    // تحميل بيانات العداد
     const savedDataStr = localStorage.getItem(storageKey);
     if (savedDataStr) {
       try {
         const savedData = JSON.parse(savedDataStr);
-        setResendCount(savedData.count || 0);
-
         const timeLeftMs = savedData.expireAt - Date.now();
         if (timeLeftMs > 0) {
           startTimer(Math.floor(timeLeftMs / 1000));
@@ -75,7 +83,7 @@ export default function VerifyCode() {
         localStorage.removeItem(storageKey);
       }
     }
-  }, [phone, startTimer, storageKey]);
+  }, [phone, startTimer, storageKey, countKey]);
 
   const handleResend = async () => {
     if (isResendDisabled) return;
@@ -90,17 +98,21 @@ export default function VerifyCode() {
       const newCount = resendCount + 1;
       setResendCount(newCount);
 
+      // حفظ عدد المحاولات بشكل دائم
+      localStorage.setItem(countKey, newCount.toString());
+
       const waitTime = getWaitTime(newCount);
 
       const resendData = {
-        count: newCount,
         expireAt: Date.now() + waitTime * 1000,
       };
       localStorage.setItem(storageKey, JSON.stringify(resendData));
 
       startTimer(waitTime);
     } catch (err) {
-      const errorMessage = err.response?.data?.message || "حدث خطأ أثناء إعادة إرسال الرمز. حاول مجدداً.";
+      const errorMessage =
+        err.response?.data?.message ||
+        "حدث خطأ أثناء إعادة إرسال الرمز. حاول مجدداً.";
       setError(errorMessage);
     }
   };
@@ -139,7 +151,7 @@ export default function VerifyCode() {
         "http://127.0.0.1:8000/api/supplier/password/verify-otp",
         {
           otp: fullCode,
-          phone
+          phone,
         }
       );
 
@@ -169,9 +181,12 @@ export default function VerifyCode() {
   const maskedPhone = formatPhone(phone);
 
   const formatTimer = (seconds) => {
-    const m = Math.floor(seconds / 60);
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
     const s = seconds % 60;
-    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+    return `${h.toString().padStart(2, "0")}:${m
+      .toString()
+      .padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
   };
 
   const firstInputRef = useRef(null);

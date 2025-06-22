@@ -39,7 +39,7 @@ export default function NewPassword() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/supplier/reset-password",
+        "http://127.0.0.1:8000/api/supplier/password/reset",
         {
           method: "POST",
           headers: {
