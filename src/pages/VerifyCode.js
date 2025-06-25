@@ -168,6 +168,8 @@ export default function VerifyCode() {
       } else {
         setError("حدث خطأ في الاتصال بالخادم. حاول مجددًا.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 

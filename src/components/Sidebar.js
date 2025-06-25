@@ -41,12 +41,12 @@ const menuItems = [
   {
     label: "تقرير المبيعات",
     icon: <Sale className="sale-icons side-icons" />,
-    path: "/sales",
+    path: "/dashboard/sales",
   },
   {
     label: "معلومات الحساب",
     icon: <Account className="account-icons side-icons" />,
-    path: "/account",
+    path: "/dashboard/account",
   },
 ];
 

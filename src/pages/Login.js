@@ -1,5 +1,5 @@
 // Login.js
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/base.css";
 import "../styles/login.css";
@@ -18,6 +18,8 @@ export default function Login() {
   const [loginError, setLoginError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+
 
   const isValidPhone = /^09\d{8}$/.test(phone);
 
@@ -44,11 +46,11 @@ export default function Login() {
 
     try {
       // 1. طلب CSRF Cookie من السيرفر
-      await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
+      await axios.get("http://localhost:8000/sanctum/csrf-cookie");
 
       // 2. إرسال بيانات تسجيل الدخول
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/supplier/login",
+       "http://localhost:8000/api/supplier/login",
         { phone, password }
       );
 
