@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./../styles/Products.css";
 import Header from "../components/HeaderDashboard";
 import Sidebar from "../components/Sidebar";
@@ -213,9 +214,9 @@ function Products() {
                       <button className="btn-filter bt-filter">
                         تصفية <Filter className="filter-icon" />
                       </button>
-                      <button className="btn btn-add-product">
+                      <Link to="/dashboard/add-products" className="btn btn-add-product">
                         إضافة منتج جديد <Add className="add-icon" />
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

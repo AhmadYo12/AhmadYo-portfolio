@@ -9,6 +9,7 @@ import NewOrder from "./pages/NewOrders";
 import Orders from "./pages/Orders";
 import OrdersEnded from "./pages/OrdersEnded";
 import Products from "./pages/Products";
+import AddProducts from "./pages/add products/AddProducts";
 import Sales from "./pages/Sales";
 import Account from "./pages/Account";
 import HomeOrders from "./pages/HomeOrders"; // صفحة تفاصيل الطلب
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/dashboard/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
         <Route path="/dashboard/ordersended" element={<ProtectedRoute><OrdersEnded /></ProtectedRoute>} />
         <Route path="/dashboard/products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
+        <Route path="/dashboard/add-products" element={<ProtectedRoute><AddProducts /></ProtectedRoute>} />
         <Route path="/dashboard/sales" element={<ProtectedRoute><Sales /></ProtectedRoute>} />
         <Route path="/dashboard/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
         <Route
