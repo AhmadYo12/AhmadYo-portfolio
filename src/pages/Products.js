@@ -20,8 +20,9 @@ function Products() {
       price: 20.0,
       quantity: 234,
       status: "متاحة",
-      rating: 4.3,
-      reviews: 1031,
+      category: "أدوات جراحية",
+      company: "شركة الطب الحديث",
+      origin: "ألمانيا",
       orderId: "#59217",
     },
     {
@@ -31,8 +32,9 @@ function Products() {
       price: 18.0,
       quantity: 200,
       status: "متاحة",
-      rating: 4.0,
-      reviews: 856,
+      category: "أدوات جراحية",
+      company: "شركة الطب الحديث",
+      origin: "ألمانيا",
       orderId: "#59218",
     },
     {
@@ -42,8 +44,9 @@ function Products() {
       price: 22.0,
       quantity: 150,
       status: "مخفية",
-      rating: 4.2,
-      reviews: 920,
+      category: "مواد استهلاكية",
+      company: "شركة الأسنان المتقدمة",
+      origin: "أمريكا",
       orderId: "#59219",
     },
     {
@@ -53,8 +56,9 @@ function Products() {
       price: 21.5,
       quantity: 170,
       status: "متاحة",
-      rating: 4.1,
-      reviews: 1000,
+      category: "مواد استهلاكية",
+      company: "شركة الأسنان المتقدمة",
+      origin: "أمريكا",
       orderId: "#59220",
     },
     {
@@ -64,8 +68,9 @@ function Products() {
       price: 19.5,
       quantity: 190,
       status: "متاحة",
-      rating: 4.0,
-      reviews: 975,
+      category: "أجهزة طبية",
+      company: "شركة التقنيات الطبية",
+      origin: "اليابان",
       orderId: "#59221",
     },
     {
@@ -75,8 +80,9 @@ function Products() {
       price: 20.0,
       quantity: 180,
       status: "مخفية",
-      rating: 3.9,
-      reviews: 889,
+      category: "أدوات جراحية",
+      company: "شركة الطب الحديث",
+      origin: "ألمانيا",
       orderId: "#59222",
     },
     {
@@ -86,8 +92,9 @@ function Products() {
       price: 20.0,
       quantity: 180,
       status: "مخفية",
-      rating: 3.9,
-      reviews: 889,
+      category: "أدوات جراحية",
+      company: "شركة الطب الحديث",
+      origin: "ألمانيا",
       orderId: "#59223",
     },
     {
@@ -97,11 +104,11 @@ function Products() {
       price: 20.0,
       quantity: 180,
       status: "مخفية",
-      rating: 3.9,
-      reviews: 889,
+      category: "مواد استهلاكية",
+      company: "شركة الغذاء الطبي",
+      origin: "فرنسا",
       orderId: "#59224",
     },
-    // أضفت منتجات أخرى مع IDs متتابعة لضمان عدم التكرار
     {
       id: 9,
       name: "food",
@@ -109,8 +116,9 @@ function Products() {
       price: 20.0,
       quantity: 180,
       status: "مخفية",
-      rating: 3.9,
-      reviews: 889,
+      category: "مواد استهلاكية",
+      company: "شركة الغذاء الطبي",
+      origin: "فرنسا",
       orderId: "#59225",
     },
     {
@@ -120,8 +128,9 @@ function Products() {
       price: 20.0,
       quantity: 180,
       status: "مخفية",
-      rating: 3.9,
-      reviews: 889,
+      category: "مواد استهلاكية",
+      company: "شركة الغذاء الطبي",
+      origin: "فرنسا",
       orderId: "#59226",
     },
     {
@@ -131,8 +140,9 @@ function Products() {
       price: 20.0,
       quantity: 180,
       status: "مخفية",
-      rating: 3.9,
-      reviews: 889,
+      category: "مواد استهلاكية",
+      company: "شركة الغذاء الطبي",
+      origin: "فرنسا",
       orderId: "#59227",
     },
     {
@@ -142,8 +152,9 @@ function Products() {
       price: 20.0,
       quantity: 180,
       status: "مخفية",
-      rating: 3.9,
-      reviews: 889,
+      category: "مواد استهلاكية",
+      company: "شركة الغذاء الطبي",
+      origin: "فرنسا",
       orderId: "#59228",
     },
   ]);
@@ -152,25 +163,33 @@ function Products() {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(5);
 
+  // تصفية المنتجات حسب البحث
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // ضبط عدد المنتجات المعروضة حسب ارتفاع الشاشة
   useEffect(() => {
     const calculateRows = () => {
-      const headerHeight = 260;
-      const rowHeight = 90;
-      const availableHeight = window.innerHeight - headerHeight;
+      const headerHeight = 280;
+      const rowHeight = 85;
+      const paginationHeight = 60;
+      const availableHeight = window.innerHeight - headerHeight - paginationHeight;
       const visibleRows = Math.floor(availableHeight / rowHeight);
-      setProductsPerPage(visibleRows > 0 ? visibleRows : 1);
+      const newRowsPerPage = Math.max(visibleRows, 3);
+      setProductsPerPage(newRowsPerPage);
+      
+      // إعادة تعيين الصفحة الحالية إذا تجاوزت العدد الجديد
+      const newTotalPages = Math.ceil(filteredProducts.length / newRowsPerPage);
+      if (currentPage > newTotalPages && newTotalPages > 0) {
+        setCurrentPage(newTotalPages);
+      }
     };
 
     calculateRows();
     window.addEventListener("resize", calculateRows);
     return () => window.removeEventListener("resize", calculateRows);
-  }, []);
-
-  // تصفية المنتجات حسب البحث
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  }, [filteredProducts.length, currentPage]);
 
   // حساب المنتجات التي يجب عرضها في الصفحة الحالية
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -222,15 +241,17 @@ function Products() {
                 </div>
 
                 {/* Products Table */}
-                <div className="orders-table new-orders-table">
+                <div className="products-table">
                   <table>
                     <thead>
                       <tr>
                         <th>المنتج</th>
                         <th>السعر</th>
+                        <th>الصنف</th>
+                        <th>الشركة</th>
+                        <th>بلد المنشأ</th>
                         <th>الحالة</th>
-                        <th>التقييم</th>
-                        <th>أزرار الإجراء</th>
+                        <th>الخيارات</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -254,6 +275,9 @@ function Products() {
                             </div>
                           </td>
                           <td className="price">${product.price.toFixed(2)}</td>
+                          <td className="category">{product.category}</td>
+                          <td className="company">{product.company}</td>
+                          <td className="origin">{product.origin}</td>
                           <td>
                             <span
                               className={`badge ${
@@ -264,17 +288,6 @@ function Products() {
                             >
                               {product.status}
                             </span>
-                          </td>
-                          <td>
-                            <div className="rating">
-                              <span className="reviews">
-                                ({product.reviews})
-                              </span>
-                              <span className="num">
-                                {product.rating.toFixed(1)}
-                              </span>
-                              <Star className="star-icon" />
-                            </div>
                           </td>
                           <td>
                             <div className="action-buttons">

@@ -104,7 +104,7 @@
 }
 
 .card-title {
-  font-size: 17px;
+  font-size: 17.5px;
   font-weight: 600;
   line-height: 130%;
 }
@@ -687,6 +687,12 @@
   font-family: var(--font-for-number);
 }
 
+/* Apply main project font to category and company columns in orders tables */
+.new-orders-table td:nth-child(3),
+.new-orders-table td:nth-child(4) {
+  font-family: var(--font-family);
+}
+
 .new-orders-table th:first-child,
 .new-orders-table td:first-child {
   border-right: none;
@@ -696,29 +702,230 @@
   border-left: none;
 }
 
-.orders-table th:nth-child(1),
-.orders-table td:nth-child(1) {
-  width: 10%; /* يمكنك التعديل حسب الحاجة */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* Products table styling */
+.products-table {
+  margin-top: 18px;
+  background: white;
+  border-radius: 20px;
+  overflow-x: auto;
+  padding: 0 20px;
 }
 
-/* أعمدة السعر، الحالة، التقييم بنفس العرض */
-.orders-table th:nth-child(2),
-.orders-table td:nth-child(2),
-.orders-table th:nth-child(3),
-.orders-table td:nth-child(3) {
-  width: 15%;
+.products-table table {
+  width: 100%;
+  border: 2px solid var(--primary-color);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 16px;
+  margin-top: 6px;
+  font-size: 14px;
+  overflow: hidden;
+  min-width: 900px;
 }
-.orders-table th:nth-child(4),
-.orders-table td:nth-child(4) {
+
+.products-table th {
+  background: #dbf5ff;
+  color: var(--text-color);
+  font-weight: bold;
+  padding: 10px 3px;
+  text-align: center;
+  border-bottom: 1px solid var(--primary-color);
+  border-left: 1px solid var(--primary-color);
+  border-right: 1px solid var(--primary-color);
+}
+
+.products-table th:first-child {
+  border-top-right-radius: 16px;
+  border-right: none;
+}
+
+.products-table th:last-child {
+  border-top-left-radius: 16px;
+  border-left: none;
+}
+
+.products-table td {
+  padding: 8px 3px;
+  font-size: 14px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+  border-left: 1px solid #e5e7eb;
+  border-right: 1px solid #e5e7eb;
+}
+
+.products-table td:first-child {
+  border-right: none;
+}
+
+.products-table td:last-child {
+  border-left: none;
+}
+
+.products-table tr:last-child td {
+  border-bottom: none;
+}
+
+.products-table tr:hover {
+  background: var(--orders-table-row-hover);
+}
+
+/* Products table column widths */
+.products-table th:nth-child(1),
+.products-table td:nth-child(1) {
+  width: 26%;
+  min-width: 200px;
+}
+
+.products-table th:nth-child(2),
+.products-table td:nth-child(2) {
   width: 9%;
+  min-width: 70px;
 }
-/* عمود أزرار الإجراء أكبر */
-.orders-table th:nth-child(5),
-.orders-table td:nth-child(5) {
-  width: 15%;
+
+.products-table th:nth-child(3),
+.products-table td:nth-child(3) {
+  width: 13%;
+  min-width: 100px;
+  font-family: var(--font-family);
+}
+
+.products-table th:nth-child(4),
+.products-table td:nth-child(4) {
+  width: 16%;
+  min-width: 120px;
+  font-family: var(--font-family);
+}
+
+.products-table th:nth-child(5),
+.products-table td:nth-child(5) {
+  width: 11%;
+  min-width: 85px;
+  font-family: var(--font-family);
+}
+
+.products-table th:nth-child(6),
+.products-table td:nth-child(6) {
+  width: 9%;
+  min-width: 70px;
+}
+
+.products-table th:nth-child(7),
+.products-table td:nth-child(7) {
+  width: 16%;
+  min-width: 90px;
+}
+
+/* Dashboard orders table styling */
+.dashboard-orders-table {
+  margin-top: 18px;
+  background: white;
+  border-radius: 20px;
+  overflow-x: auto;
+  padding: 0 20px;
+}
+
+.dashboard-orders-table table {
+  width: 100%;
+  border: 2px solid var(--primary-color);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 16px;
+  margin-top: 6px;
+  font-size: 14px;
+  overflow: hidden;
+  min-width: 700px;
+}
+
+.dashboard-orders-table th {
+  background: #dbf5ff;
+  color: var(--text-color);
+  font-weight: bold;
+  padding: 10px 5px;
+  text-align: center;
+  border-bottom: 1px solid var(--primary-color);
+  border-left: 1px solid var(--primary-color);
+  border-right: 1px solid var(--primary-color);
+}
+
+.dashboard-orders-table th:nth-child(1),
+.dashboard-orders-table th:nth-child(4),
+.dashboard-orders-table th:nth-child(5) {
+  font-family: var(--font-family) !important;
+}
+
+.dashboard-orders-table th:first-child {
+  border-top-right-radius: 16px;
+  border-right: none;
+}
+
+.dashboard-orders-table th:last-child {
+  border-top-left-radius: 16px;
+  border-left: none;
+}
+
+.dashboard-orders-table td {
+  padding: 8px 5px;
+  font-size: 13px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+  border-left: 1px solid #e5e7eb;
+  border-right: 1px solid #e5e7eb;
+}
+
+.dashboard-orders-table td:first-child {
+  border-right: none;
+}
+
+.dashboard-orders-table td:last-child {
+  border-left: none;
+}
+
+.dashboard-orders-table tr:last-child td {
+  border-bottom: none;
+}
+
+.dashboard-orders-table tr:hover {
+  background: var(--orders-table-row-hover);
+}
+
+/* Dashboard orders table column widths */
+.dashboard-orders-table th:nth-child(1),
+.dashboard-orders-table td:nth-child(1) {
+  width: 10%;
+  min-width: 70px;
+  font-family: var(--font-for-number);
+}
+
+.dashboard-orders-table th:nth-child(2),
+.dashboard-orders-table td:nth-child(2) {
+  width: 20%;
+  min-width: 120px;
+}
+
+.dashboard-orders-table th:nth-child(3),
+.dashboard-orders-table td:nth-child(3) {
+  width: 22%;
+  min-width: 130px;
+}
+
+.dashboard-orders-table th:nth-child(4),
+.dashboard-orders-table td:nth-child(4) {
+  width: 10%;
+  min-width: 70px;
+  font-family: var(--font-for-number);
+}
+
+.dashboard-orders-table th:nth-child(5),
+.dashboard-orders-table td:nth-child(5) {
+  width: 18%;
+  min-width: 110px;
+  font-family: var(--font-for-number);
+}
+
+.dashboard-orders-table th:nth-child(6),
+.dashboard-orders-table td:nth-child(6) {
+  width: 20%;
+  min-width: 120px;
 }
 
 /* عمود رقم الطلب أصغر */

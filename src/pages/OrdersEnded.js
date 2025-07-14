@@ -66,25 +66,32 @@ function OrdersEnded() {
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage, setOrdersPerPage] = useState(8);
 
-  useEffect(() => {
-    const calculateRows = () => {
-      const headerHeight = 380;
-      const rowHeight = 60;
-      const availableHeight = window.innerHeight - headerHeight;
-      const visibleRows = Math.floor(availableHeight / rowHeight);
-      setOrdersPerPage(visibleRows > 0 ? visibleRows : 1);
-    };
-
-    calculateRows();
-    window.addEventListener("resize", calculateRows);
-    return () => window.removeEventListener("resize", calculateRows);
-  }, []);
-
   const filteredOrders = orders.filter((order) =>
     Object.values(order).some((value) =>
       String(value).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
+  useEffect(() => {
+    const calculateRows = () => {
+      const headerHeight = 400;
+      const rowHeight = 55;
+      const paginationHeight = 60;
+      const availableHeight = window.innerHeight - headerHeight - paginationHeight;
+      const visibleRows = Math.floor(availableHeight / rowHeight);
+      const newRowsPerPage = Math.max(visibleRows, 5);
+      setOrdersPerPage(newRowsPerPage);
+      
+      const newTotalPages = Math.ceil(filteredOrders.length / newRowsPerPage);
+      if (currentPage > newTotalPages && newTotalPages > 0) {
+        setCurrentPage(newTotalPages);
+      }
+    };
+
+    calculateRows();
+    window.addEventListener("resize", calculateRows);
+    return () => window.removeEventListener("resize", calculateRows);
+  }, [filteredOrders.length, currentPage]);
 
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
@@ -148,7 +155,7 @@ function OrdersEnded() {
                         <th className="state-order">الحالة</th>
                         <th className="orders-num">عدد المنتجات</th>
                         <th className="date-time">الوقت والتاريخ</th>
-                        <th className="show-more">أزرار الإجراء</th>
+                        <th className="show-more">الخيارات</th>
                       </tr>
                     </thead>
                     <tbody>

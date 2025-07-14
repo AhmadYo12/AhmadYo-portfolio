@@ -234,7 +234,54 @@
   color: #1a71f6;
 }
 
+/* New columns styling */
+.category, .company {
+  font-size: 13px;
+  color: var(--text-color);
+  text-align: center;
+  font-family: var(--font-family);
+}
+
+.origin {
+  font-size: 13px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* Responsive table */
+.orders-table {
+  overflow-x: auto;
+}
+
+.orders-table table {
+  min-width: 1000px;
+}
+
 /* Responsive adjustments */
+@media (max-width: 1200px) {
+  .orders-table table {
+    font-size: 12px;
+  }
+  
+  .category, .company {
+    font-size: 11px;
+  }
+  
+  .origin {
+    font-size: 11px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .btn-edit, .btn-delete {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+}
+
 @media (max-width: 768px) {
   .products-header {
     flex-direction: column;
@@ -252,8 +299,25 @@
     width: 100%;
   }
 
-  .action-buttons {
+  .orders-table table {
+    min-width: 800px;
+  }
+  
+  .product-cell {
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
+  }
+  
+  .product-cell img {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .idname .name-product {
+    font-size: 12px;
+  }
+  
+  .category, .company, .origin {
+    font-size: 10px;
   }
 }

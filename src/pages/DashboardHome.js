@@ -10,19 +10,16 @@ const cardsData = [
   {
     title: "إجمالي المبيعات",
     value: "$12.5k",
-    trend: "3.6%",
     colorClass: "green",
   },
   {
     title: "عدد المنتجات المباعة",
     value: "1.014",
-    trend: "3.6%",
     colorClass: "purple",
   },
   {
-    title: "عدد الطلبات هذا الشهر",
+    title: "عدد الطلبات",
     value: "1.650",
-    trend: "3.6%",
     colorClass: "yellow",
   },
   {
@@ -33,7 +30,6 @@ const cardsData = [
         <Star className="star-icon" />
       </>
     ),
-    trend: "3.6%",
     colorClass: "orange",
   },
 ];
@@ -54,7 +50,7 @@ export default function Dashboard() {
           <div className="dashboard-content main-scroll-area">
             <h1 className="page-title">الرئيسية</h1>
             <div className="dashboard-grid">
-              {cardsData.map(({ title, value, trend, colorClass }, i) => (
+              {cardsData.map(({ title, value, colorClass }, i) => (
                 <div
                   key={i}
                   className={`card ${colorClass} grid-card card${i + 1}`}
@@ -67,13 +63,6 @@ export default function Dashboard() {
                   </div>
                   <div className="card-row card-row-bottom">
                     <span className="card-value">{value}</span>
-                    <span className={`card-trend ${colorClass}-trend`}>
-                      <span className="trend-number">
-                        {trend}
-                        <i className="fa-solid fa-arrow-trend-up"></i>
-                      </span>
-                      <span className="trend-tail">هذا الشهر</span>
-                    </span>
                   </div>
                 </div>
               ))}
@@ -121,7 +110,7 @@ export default function Dashboard() {
 
               <div className="orders-table-area">
                 <div className="new-orders-table-wrapper">
-                  <div className="orders-table new-orders-table">
+                  <div className="dashboard-orders-table">
                     <div className="orders-table-header-row">
                       <span className="orders-table-title">
                         طلبات قيد الانتظار
@@ -143,7 +132,7 @@ export default function Dashboard() {
                           <th className="state-order">الحالة</th>
                           <th className="orders-num">عدد المنتجات</th>
                           <th className="date-time">الوقت والتاريخ</th>
-                          <th className="show-more">أزرار الإجراء</th>
+                          <th className="show-more">الخيارات</th>
                         </tr>
                       </thead>
                       <tbody>

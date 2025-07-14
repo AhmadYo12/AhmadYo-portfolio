@@ -117,11 +117,12 @@ function NewOrders() {
 
   useEffect(() => {
     const calculateRows = () => {
-      const headerHeight = 460;
-      const rowHeight = 60;
-      const availableHeight = window.innerHeight - headerHeight;
+      const headerHeight = 480;
+      const rowHeight = 55;
+      const paginationHeight = 60;
+      const availableHeight = window.innerHeight - headerHeight - paginationHeight;
       const visibleRows = Math.floor(availableHeight / rowHeight);
-      setOrdersPerPage(visibleRows > 0 ? visibleRows : 1);
+      setOrdersPerPage(Math.max(visibleRows, 4));
     };
 
     calculateRows();
@@ -176,7 +177,7 @@ function NewOrders() {
                         <th className="state-order">الحالة</th>
                         <th className="orders-num">عدد المنتجات</th>
                         <th className="date-time">الوقت والتاريخ</th>
-                        <th className="show-more">أزرار الإجراء</th>
+                        <th className="show-more">الخيارات</th>
                       </tr>
                     </thead>
                     <tbody>
