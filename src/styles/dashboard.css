@@ -109,7 +109,7 @@
   line-height: 130%;
 }
 
-.card.orange {
+.card.orange{
   background: var(--yellow);
   border-color: var(--yellow-border);
   color: var(--yellow-border);
