@@ -109,7 +109,7 @@
   line-height: 130%;
 }
 
-.card.orange{
+.card.orange {
   background: var(--yellow);
   border-color: var(--yellow-border);
   color: var(--yellow-border);
@@ -971,4 +971,44 @@ td:nth-child(6) {
   min-width: 150px;
   max-width: 190px;
   white-space: nowrap;
+}
+
+/* Page Unavailable Styles */
+.page-unavailable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.unavailable-message {
+  text-align: center;
+  background: var(--white-color);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--primary-color);
+  max-width: 500px;
+}
+
+.unavailable-icon {
+  font-size: 60px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.unavailable-message h2 {
+  color: var(--text-color);
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  font-family: var(--font-family);
+}
+
+.unavailable-message p {
+  color: var(--secondary-text-color);
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.5;
+  font-family: var(--font-family);
 }

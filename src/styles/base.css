@@ -11,6 +11,13 @@
   --text-color-2: #454545;
   --icons-color: #888888;
   --colorrrrr: #666;
+  --gray-border: #999999;
+  --white-color: #ffffff;
+  --dark-text: #333333;
+  --placeholder-color: #aaaaaa;
+  --danger-color: #dc3545;
+  --danger-hover: #c82333;
+  --primary-hover: #0099cc;
 }
 
 body {
