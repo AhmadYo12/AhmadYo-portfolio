@@ -18,6 +18,39 @@
   --danger-color: #dc3545;
   --danger-hover: #c82333;
   --primary-hover: #0099cc;
+  
+  /* Order Status Colors */
+  --awaiting-approval-bg: #ffdcdc;
+  --awaiting-approval-color: #ff0000;
+  --awaiting-approval-border: #ff0000;
+  
+  --processing-bg: #fef9c3;
+  --processing-color: #a16207;
+  --processing-border: #facc15;
+  
+  --searching-courier-bg: #e0f7fd;
+  --searching-courier-color: var(--primary-color);
+  --searching-courier-border: var(--primary-color);
+  
+  --preparing-bg: #dbeafe;
+  --preparing-color: #1e40af;
+  --preparing-border: #93c5fd;
+  
+  --in-transit-bg: #fff7ed;
+  --in-transit-color: #c2410c;
+  --in-transit-border: #f97316;
+  
+  --rejected-bg: #ffe5e5;
+  --rejected-color: #b71c1c;
+  --rejected-border: #d32f2f;
+  
+  --canceled-by-customer-bg: #fce7f3;
+  --canceled-by-customer-color: #9d174d;
+  --canceled-by-customer-border: #9d174d;
+  
+  --delivered-bg: #e6f4ea;
+  --delivered-color: #1f6f3b;
+  --delivered-border: #38c172;
 }
 
 body {

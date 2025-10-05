@@ -30,6 +30,8 @@ function Account() {
     new: false,
     confirm: false
   });
+  const [passwordErrors, setPasswordErrors] = useState({});
+  const [passwordLoading, setPasswordLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,16 +51,84 @@ function Account() {
     setPasswordData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handlePasswordSubmit = () => {
-    console.log("Password change submitted:", passwordData);
-    setShowPasswordModal(false);
-    setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
+  const validatePassword = () => {
+    const newErrors = {};
+    
+    if (!passwordData.currentPassword) {
+      newErrors.currentPassword = "يرجى إدخال كلمة المرور الحالية";
+    }
+    
+    if (!passwordData.newPassword) {
+      newErrors.newPassword = "يرجى إدخال كلمة المرور الجديدة";
+    } else if (passwordData.newPassword.length < 8) {
+      newErrors.newPassword = "كلمة المرور يجب أن تكون 8 أحرف على الأقل";
+    }
+    
+    if (!passwordData.confirmPassword) {
+      newErrors.confirmPassword = "يرجى تأكيد كلمة المرور الجديدة";
+    } else if (passwordData.newPassword !== passwordData.confirmPassword) {
+      newErrors.confirmPassword = "كلمة المرور الجديدة وتأكيدها غير متطابقتين";
+    }
+    
+    setPasswordErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handlePasswordSubmit = async () => {
+    if (!validatePassword()) return;
+    
+    setPasswordLoading(true);
+    setPasswordErrors({});
+    
+    try {
+      await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
+      
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/supplier/password/reset",
+        {
+          current_password: passwordData.currentPassword,
+          password: passwordData.newPassword,
+          password_confirmation: passwordData.confirmPassword
+        }
+      );
+      
+      if (response.data.status === "success") {
+        setShowPasswordModal(false);
+        setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
+        setPasswordErrors({});
+        // يمكن إضافة رسالة نجاح هنا
+      }
+    } catch (error) {
+      if (error.response?.status === 422) {
+        const serverErrors = error.response.data.errors || {};
+        const newErrors = {};
+        
+        if (serverErrors.current_password) {
+          newErrors.currentPassword = serverErrors.current_password[0];
+        }
+        if (serverErrors.password) {
+          newErrors.newPassword = serverErrors.password[0];
+        }
+        if (error.response.data.message) {
+          newErrors.general = error.response.data.message;
+        }
+        
+        setPasswordErrors(newErrors);
+      } else if (error.response?.status === 401) {
+        setPasswordErrors({ currentPassword: "كلمة المرور الحالية غير صحيحة" });
+      } else {
+        setPasswordErrors({ general: "حدث خطأ غير متوقع، يرجى المحاولة لاحقاً" });
+      }
+    } finally {
+      setPasswordLoading(false);
+    }
   };
 
   const handleModalClose = () => {
     setShowPasswordModal(false);
     setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
     setShowPasswords({ current: false, new: false, confirm: false });
+    setPasswordErrors({});
   };
 
   const togglePasswordVisibility = (field) => {
@@ -210,6 +280,10 @@ function Account() {
             </div>
             
             <div className="modal-body">
+              {passwordErrors.general && (
+                <div className="error" style={{marginBottom: '15px'}}>{passwordErrors.general}</div>
+              )}
+              
               <div className="modal-field">
                 <label>كلمة المرور الحالية</label>
                 <div className="modal-password-wrapper">
@@ -219,12 +293,24 @@ function Account() {
                     value={passwordData.currentPassword}
                     onChange={handlePasswordInputChange}
                     placeholder="ادخل كلمة المرور الحالية"
+                    className={passwordErrors.currentPassword ? "input-error" : ""}
+                    disabled={passwordLoading}
                   />
                   <span className="modal-toggle-password" onClick={() => togglePasswordVisibility('current')}>
                     <i className={`fa ${showPasswords.current ? 'fa-eye-slash' : 'fa-eye'}`}></i>
                   </span>
                 </div>
-                <a href="#" className="forgot-password-link">نسيت كلمة المرور؟</a>
+                {passwordErrors.currentPassword && (
+                  <div className="error">{passwordErrors.currentPassword}</div>
+                )}
+                <button 
+                  type="button" 
+                  onClick={() => navigate('/forgot-password')} 
+                  className="forgot-password-link"
+                  style={{background: 'none', border: 'none', padding: 0, cursor: 'pointer'}}
+                >
+                  نسيت كلمة المرور؟
+                </button>
               </div>
               
               <div className="modal-field">
@@ -236,11 +322,16 @@ function Account() {
                     value={passwordData.newPassword}
                     onChange={handlePasswordInputChange}
                     placeholder="ادخل كلمة المرور الجديدة"
+                    className={passwordErrors.newPassword ? "input-error" : ""}
+                    disabled={passwordLoading}
                   />
                   <span className="modal-toggle-password" onClick={() => togglePasswordVisibility('new')}>
                     <i className={`fa ${showPasswords.new ? 'fa-eye-slash' : 'fa-eye'}`}></i>
                   </span>
                 </div>
+                {passwordErrors.newPassword && (
+                  <div className="error">{passwordErrors.newPassword}</div>
+                )}
               </div>
               
               <div className="modal-field">
@@ -252,19 +343,39 @@ function Account() {
                     value={passwordData.confirmPassword}
                     onChange={handlePasswordInputChange}
                     placeholder="ادخل تأكيد كلمة المرور الجديدة"
+                    className={passwordErrors.confirmPassword ? "input-error" : ""}
+                    disabled={passwordLoading}
                   />
                   <span className="modal-toggle-password" onClick={() => togglePasswordVisibility('confirm')}>
                     <i className={`fa ${showPasswords.confirm ? 'fa-eye-slash' : 'fa-eye'}`}></i>
                   </span>
                 </div>
+                {passwordErrors.confirmPassword && (
+                  <div className="error">{passwordErrors.confirmPassword}</div>
+                )}
               </div>
             </div>
             
             <div className="modal-footer">
-              <button className="modal-btn-primary" onClick={handlePasswordSubmit}>
-                تطبيق التغيير
+              <button 
+                className="modal-btn-primary" 
+                onClick={handlePasswordSubmit}
+                disabled={passwordLoading}
+              >
+                {passwordLoading ? (
+                  <>
+                    <i className="fa fa-spinner fa-spin" style={{marginLeft: '8px'}}></i>
+                    جاري التحديث...
+                  </>
+                ) : (
+                  "تطبيق التغيير"
+                )}
               </button>
-              <button className="modal-btn-secondary" onClick={handleModalClose}>
+              <button 
+                className="modal-btn-secondary" 
+                onClick={handleModalClose}
+                disabled={passwordLoading}
+              >
                 إلغاء
               </button>
             </div>

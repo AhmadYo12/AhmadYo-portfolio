@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/HeaderDashboard";
 import Sidebar from "../components/Sidebar";
+import DatePicker from "../components/DatePicker";
 import "../styles/dashboard.css";
 import "../styles/Products.css";
 import "../styles/order.css";
@@ -61,16 +62,37 @@ const dummyOrders = [
 ];
 
 function OrdersEnded() {
+  const [originalOrders] = useState(dummyOrders);
   const [orders, setOrders] = useState(dummyOrders);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage, setOrdersPerPage] = useState(8);
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [filterData, setFilterData] = useState({
+    orderId: "",
+    customerName: "",
+    date: "",
+    dateRange: "",
+    statuses: []
+  });
+  const [showHint, setShowHint] = useState(true);
 
   const filteredOrders = orders.filter((order) =>
     Object.values(order).some((value) =>
       String(value).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
+  // استخدام البيانات الأصلية للتصفية المتقدمة
+  const getFilteredData = () => {
+    if (!searchTerm) return orders;
+    return orders.filter((order) =>
+      Object.values(order).some((value) =>
+        String(value).toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  };
 
   useEffect(() => {
     const calculateRows = () => {
@@ -82,7 +104,7 @@ function OrdersEnded() {
       const newRowsPerPage = Math.max(visibleRows, 5);
       setOrdersPerPage(newRowsPerPage);
       
-      const newTotalPages = Math.ceil(filteredOrders.length / newRowsPerPage);
+      const newTotalPages = Math.ceil(getFilteredData().length / newRowsPerPage);
       if (currentPage > newTotalPages && newTotalPages > 0) {
         setCurrentPage(newTotalPages);
       }
@@ -93,13 +115,14 @@ function OrdersEnded() {
     return () => window.removeEventListener("resize", calculateRows);
   }, [filteredOrders.length, currentPage]);
 
+  const finalFilteredOrders = getFilteredData();
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  const currentOrders = filteredOrders.slice(
+  const currentOrders = finalFilteredOrders.slice(
     indexOfFirstOrder,
     indexOfLastOrder
   );
-  const totalPages = Math.ceil(filteredOrders.length / ordersPerPage);
+  const totalPages = Math.ceil(finalFilteredOrders.length / ordersPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -115,6 +138,73 @@ function OrdersEnded() {
         return "waiting";
     }
   };
+
+  const handleFilterChange = (field, value) => {
+    setFilterData(prev => ({ ...prev, [field]: value }));
+    setShowHint(false);
+  };
+
+  const handleStatusToggle = (status) => {
+    setFilterData(prev => ({
+      ...prev,
+      statuses: prev.statuses.includes(status)
+        ? prev.statuses.filter(s => s !== status)
+        : [...prev.statuses, status]
+    }));
+    setShowHint(false);
+  };
+
+  const applyFilter = () => {
+    let filtered = [...originalOrders];
+    
+    if (filterData.orderId) {
+      filtered = filtered.filter(order => order.id.toString() === filterData.orderId.toString());
+    }
+    
+    if (filterData.customerName) {
+      filtered = filtered.filter(order => order.customerName === filterData.customerName);
+    }
+    
+    if (filterData.statuses.length > 0) {
+      filtered = filtered.filter(order => filterData.statuses.includes(order.status));
+    }
+    
+    setOrders(filtered);
+    setCurrentPage(1);
+    setShowFilterModal(false);
+  };
+
+  const clearFilter = () => {
+    setFilterData({
+      orderId: "",
+      customerName: "",
+      date: "",
+      dateRange: "",
+      statuses: []
+    });
+    setOrders(originalOrders);
+    setCurrentPage(1);
+  };
+
+  const handleDateApply = (selectedDate, selectedRange) => {
+    const year = selectedDate.getFullYear();
+    const month = selectedDate.getMonth() + 1;
+    const day = selectedDate.getDate();
+    const formattedDate = `${year}/${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}`;
+    
+    setFilterData(prev => ({
+      ...prev,
+      date: selectedDate.toISOString().split('T')[0],
+      dateRange: selectedRange === 'مخصص' ? formattedDate : selectedRange
+    }));
+    setShowHint(false);
+  };
+
+  const statusOptions = [
+    { value: "مرفوض من قبلك", class: "rejected" },
+    { value: "تم التوصيل بنجاح", class: "delivered" },
+    { value: "تم الإلغاء من قبل الطبيب", class: "canceled-by-customer" }
+  ];
 
   return (
     <div className="dashboard-container">
@@ -140,7 +230,7 @@ function OrdersEnded() {
                       />
                       <i className="fa-solid fa-search search-icon"></i>
                     </div>
-                    <button className="btn-filter">
+                    <button className="btn-filter" onClick={() => setShowFilterModal(true)}>
                       تصفية <Filter className="filter-icon" />
                     </button>
                   </div>
@@ -208,6 +298,107 @@ function OrdersEnded() {
           </div>
         </div>
       </div>
+      
+      {showFilterModal && (
+        <div className="filter-modal-overlay" onClick={() => setShowFilterModal(false)}>
+          <div className="filter-modal-container" onClick={(e) => e.stopPropagation()}>
+            <div className="filter-modal-header">
+              <h2 className="filter-modal-title">التصفية</h2>
+              <button className="filter-modal-close" onClick={() => setShowFilterModal(false)}>
+                <i className="fa fa-times"></i>
+              </button>
+            </div>
+            
+            <div className="filter-modal-body">
+              {showHint && (
+                <div className="filter-hint">
+                  <i className="fa fa-lightbulb"></i>
+                  <span>اختر حقلاً واحداً على الأقل</span>
+                </div>
+              )}
+              
+              <div className="filter-field">
+                <label>رقم الطلب</label>
+                <select 
+                  value={filterData.orderId} 
+                  onChange={(e) => handleFilterChange('orderId', e.target.value)}
+                >
+                  <option value="">رقم الطلب</option>
+                  {[...new Set(orders.map(order => order.id))].map(id => (
+                    <option key={id} value={id}>{id}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="filter-field">
+                <label>اسم الزبون</label>
+                <select 
+                  value={filterData.customerName} 
+                  onChange={(e) => handleFilterChange('customerName', e.target.value)}
+                >
+                  <option value="">اسم الزبون</option>
+                  {[...new Set(orders.map(order => order.customerName))].map(name => (
+                    <option key={name} value={name}>{name}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="filter-field">
+                <label>التاريخ</label>
+                <div className="date-input-wrapper">
+                  <input 
+                    type="text" 
+                    value={filterData.dateRange || filterData.date}
+                    placeholder="اختر التاريخ"
+                    readOnly
+                    onClick={() => setShowDatePicker(true)}
+                  />
+                </div>
+              </div>
+              
+              <div className="filter-field">
+                <label>حالة الطلب</label>
+                <div className="status-grid">
+                  {statusOptions.map((status) => (
+                    <div 
+                      key={status.value}
+                      className={`status-item ${status.class} ${filterData.statuses.includes(status.value) ? 'selected' : ''}`}
+                      onClick={() => handleStatusToggle(status.value)}
+                    >
+                      <input 
+                        type="checkbox" 
+                        checked={filterData.statuses.includes(status.value)}
+                        onChange={(e) => {
+                          e.stopPropagation();
+                          handleStatusToggle(status.value);
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                      <span>{status.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            <div className="filter-modal-footer">
+              <button className="filter-btn-primary" onClick={applyFilter}>
+                تطبيق التصفية
+              </button>
+              <button className="filter-btn-secondary" onClick={clearFilter}>
+                مسح الكل
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      <DatePicker
+        isOpen={showDatePicker}
+        onClose={() => setShowDatePicker(false)}
+        onApply={handleDateApply}
+        initialDate={filterData.date}
+      />
     </div>
   );
 }

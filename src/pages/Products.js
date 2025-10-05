@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./../styles/Products.css";
+import "../styles/order.css";
 import Header from "../components/HeaderDashboard";
 import Sidebar from "../components/Sidebar";
 import { ReactComponent as Add } from "../assets/icons/add-1.svg";
@@ -12,7 +13,7 @@ import { ReactComponent as ToLeft } from "../assets/icons/Icon-1.svg"; // سهم
 import { ReactComponent as Filter } from "../assets/icons/filter-list-1.svg";
 function Products() {
   // بيانات المنتجات مع تصحيح IDs المكررة
-  const [products] = useState([
+  const [products, setProducts] = useState([
     {
       id: 1,
       name: "Hemostal - هيموستال",
@@ -159,9 +160,20 @@ function Products() {
     },
   ]);
 
+  const [originalProducts] = useState(products);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(5);
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [filterData, setFilterData] = useState({
+    productName: "",
+    priceRange: "",
+    category: "",
+    company: "",
+    origin: "",
+    statuses: []
+  });
+  const [showHint, setShowHint] = useState(true);
 
   // تصفية المنتجات حسب البحث
   const filteredProducts = products.filter((product) =>
@@ -203,6 +215,71 @@ function Products() {
   // التنقل بين الصفحات
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handleFilterChange = (field, value) => {
+    setFilterData(prev => ({ ...prev, [field]: value }));
+    setShowHint(false);
+  };
+
+  const handleStatusToggle = (status) => {
+    setFilterData(prev => ({
+      ...prev,
+      statuses: prev.statuses.includes(status)
+        ? prev.statuses.filter(s => s !== status)
+        : [...prev.statuses, status]
+    }));
+    setShowHint(false);
+  };
+
+  const applyFilter = () => {
+    let filtered = [...originalProducts];
+    
+    if (filterData.productName) {
+      filtered = filtered.filter(product => product.name === filterData.productName);
+    }
+    
+    if (filterData.priceRange) {
+      const [min, max] = filterData.priceRange.includes('+') 
+        ? [50, Infinity] 
+        : filterData.priceRange.split('-').map(Number);
+      filtered = filtered.filter(product => 
+        product.price >= min && (max === Infinity || product.price <= max)
+      );
+    }
+    
+    if (filterData.category) {
+      filtered = filtered.filter(product => product.category === filterData.category);
+    }
+    
+    if (filterData.company) {
+      filtered = filtered.filter(product => product.company === filterData.company);
+    }
+    
+    if (filterData.origin) {
+      filtered = filtered.filter(product => product.origin === filterData.origin);
+    }
+    
+    if (filterData.statuses.length > 0) {
+      filtered = filtered.filter(product => filterData.statuses.includes(product.status));
+    }
+    
+    setProducts(filtered);
+    setCurrentPage(1);
+    setShowFilterModal(false);
+  };
+
+  const clearFilter = () => {
+    setFilterData({
+      productName: "",
+      priceRange: "",
+      category: "",
+      company: "",
+      origin: "",
+      statuses: []
+    });
+    setProducts(originalProducts);
+    setCurrentPage(1);
+  };
+
   return (
     <div className="dashboard-container">
       <Header />
@@ -230,7 +307,7 @@ function Products() {
                       <i className="fa-solid fa-search search-icon"></i>
                     </div>
                     <div className="left-buttons">
-                      <button className="btn-filter bt-filter">
+                      <button className="btn-filter bt-filter" onClick={() => setShowFilterModal(true)}>
                         تصفية <Filter className="filter-icon" />
                       </button>
                       <Link to="/dashboard/add-products" className="btn btn-add-product">
@@ -283,10 +360,10 @@ function Products() {
                               className={`badge ${
                                 product.status === "متاحة"
                                   ? "available"
-                                  : "hidden"
+                                    : "waiting"
                               }`}
                             >
-                              {product.status}
+                              {product.status === "متاحة" ? "ظاهر" : "مخفي"}
                             </span>
                           </td>
                           <td>
@@ -333,6 +410,139 @@ function Products() {
           </div>
         </div>
       </div>
+      
+      {showFilterModal && (
+        <div className="filter-modal-overlay" onClick={() => setShowFilterModal(false)}>
+          <div className="filter-modal-container" onClick={(e) => e.stopPropagation()}>
+            <div className="filter-modal-header">
+              <h2 className="filter-modal-title">التصفية</h2>
+              <button className="filter-modal-close" onClick={() => setShowFilterModal(false)}>
+                <i className="fa fa-times"></i>
+              </button>
+            </div>
+            
+            <div className="filter-modal-body">
+              {showHint && (
+                <div className="filter-hint">
+                  <i className="fa fa-lightbulb"></i>
+                  <span>اختر حقلاً واحداً على الأقل</span>
+                </div>
+              )}
+              
+              <div className="filter-field">
+                <label>المنتج</label>
+                <select 
+                  value={filterData.productName} 
+                  onChange={(e) => handleFilterChange('productName', e.target.value)}
+                >
+                  <option value="">اختر المنتج</option>
+                  {[...new Set(originalProducts.map(product => product.name))].map(name => (
+                    <option key={name} value={name}>{name}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="filter-field">
+                <label>السعر</label>
+                <select 
+                  value={filterData.priceRange} 
+                  onChange={(e) => handleFilterChange('priceRange', e.target.value)}
+                >
+                  <option value="">نطاق السعر</option>
+                  <option value="0-10">$0 - $10</option>
+                  <option value="10-20">$10 - $20</option>
+                  <option value="20-50">$20 - $50</option>
+                  <option value="50+">$50+</option>
+                </select>
+              </div>
+              
+              <div className="filter-field">
+                <label>الصنف</label>
+                <select 
+                  value={filterData.category} 
+                  onChange={(e) => handleFilterChange('category', e.target.value)}
+                >
+                  <option value="">اختر الصنف</option>
+                  {[...new Set(originalProducts.map(product => product.category))].map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="filter-field">
+                <label>الشركة</label>
+                <select 
+                  value={filterData.company} 
+                  onChange={(e) => handleFilterChange('company', e.target.value)}
+                >
+                  <option value="">اختر الشركة</option>
+                  {[...new Set(originalProducts.map(product => product.company))].map(company => (
+                    <option key={company} value={company}>{company}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="filter-field">
+                <label>بلد المنشأ</label>
+                <select 
+                  value={filterData.origin} 
+                  onChange={(e) => handleFilterChange('origin', e.target.value)}
+                >
+                  <option value="">اختر بلد المنشأ</option>
+                  {[...new Set(originalProducts.map(product => product.origin))].map(origin => (
+                    <option key={origin} value={origin}>{origin}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="filter-field">
+                <label>حالة المتنج في المتجر</label>
+                <div className="status-grid">
+                  <div 
+                    className={`status-item available ${filterData.statuses.includes('متاحة') ? 'selected' : ''}`}
+                    onClick={() => handleStatusToggle('متاحة')}
+                  >
+                    <input 
+                      type="checkbox" 
+                      checked={filterData.statuses.includes('متاحة')}
+                      onChange={(e) => {
+                        e.stopPropagation();
+                        handleStatusToggle('متاحة');
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                    <span>ظاهر</span>
+                  </div>
+                  <div 
+                    className={`status-item waiting ${filterData.statuses.includes('مخفية') ? 'selected' : ''}`}
+                    onClick={() => handleStatusToggle('مخفية')}
+                  >
+                    <input 
+                      type="checkbox" 
+                      checked={filterData.statuses.includes('مخفية')}
+                      onChange={(e) => {
+                        e.stopPropagation();
+                        handleStatusToggle('مخفية');
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                    <span>مخفي</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="filter-modal-footer">
+              <button className="filter-btn-primary" onClick={applyFilter}>
+                تطبيق التصفية
+              </button>
+              <button className="filter-btn-secondary" onClick={clearFilter}>
+                مسح الكل
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
