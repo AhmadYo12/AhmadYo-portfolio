@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import Header from "../../components/HeaderDashboard";
 import Sidebar from "../../components/Sidebar";
 import "../../styles/dashboard.css";
@@ -7,6 +7,11 @@ import "./AddProducts.css";
 import { ReactComponent as Image } from "../../assets/icons/image.svg";
 function AddProducts() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const isEditMode = searchParams.get('edit');
+  const productData = location.state?.product;
+  
   const [formData, setFormData] = useState({
     productName: "",
     description: "",
@@ -27,6 +32,22 @@ function AddProducts() {
   ]);
   const [showManufacturerDropdown, setShowManufacturerDropdown] = useState(false);
   const [newManufacturer, setNewManufacturer] = useState("");
+
+  // تحميل بيانات المنتج في وضع التعديل
+  useEffect(() => {
+    if (isEditMode && productData) {
+      setFormData({
+        productName: productData.name || "",
+        description: productData.description || "",
+        category: productData.category || "",
+        manufacturer: productData.company || "",
+        price: productData.price?.toString() || "",
+        country: productData.origin || "",
+        isVisible: productData.status === "متاحة",
+      });
+      // يمكن إضافة تحميل الصورة هنا إذا كانت متوفرة
+    }
+  }, [isEditMode, productData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -87,13 +108,13 @@ function AddProducts() {
         <div className="header-dash-container">
           <div className="products-page-container">
             <div className="page-header">
-              <h1 className="page-title">إضافة منتج جديد</h1>
+              <h1 className="page-title">{isEditMode ? "تعديل المنتج" : "إضافة منتج جديد"}</h1>
               <div className="breadcrumbs">
                 <Link to="/dashboard/products" className="breadcrumb-link">
                   المنتجات
                 </Link>
                 <span className="breadcrumb-separator">←</span>
-                <span className="breadcrumb-current">إضافة منتج</span>
+                <span className="breadcrumb-current">{isEditMode ? "تعديل منتج" : "إضافة منتج"}</span>
               </div>
             </div>
 
@@ -291,7 +312,7 @@ function AddProducts() {
                         className="submit-btn"
                         disabled={isSubmitting}
                       >
-                        {isSubmitting ? "جاري الإضافة..." : "إضافة المنتج"}
+                        {isSubmitting ? (isEditMode ? "جاري التحديث..." : "جاري الإضافة...") : (isEditMode ? "تحديث المنتج" : "إضافة المنتج")}
                       </button>
                     </div>
                   </div>

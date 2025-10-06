@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./../styles/Products.css";
 import "../styles/order.css";
+import "../styles/DeleteModal.css";
 import Header from "../components/HeaderDashboard";
 import Sidebar from "../components/Sidebar";
 import { ReactComponent as Add } from "../assets/icons/add-1.svg";
@@ -11,7 +12,10 @@ import { ReactComponent as Star } from "../assets/icons/Vector-1.svg";
 import { ReactComponent as ToRight } from "../assets/icons/Icon-2.svg"; // سهم لليمين (التالي)
 import { ReactComponent as ToLeft } from "../assets/icons/Icon-1.svg"; // سهم لليسار (السابق)
 import { ReactComponent as Filter } from "../assets/icons/filter-list-1.svg";
+import { ReactComponent as Warning } from "../assets/icons/warning 1.svg";
 function Products() {
+  const navigate = useNavigate();
+  
   // بيانات المنتجات مع تصحيح IDs المكررة
   const [products, setProducts] = useState([
     {
@@ -174,6 +178,8 @@ function Products() {
     statuses: []
   });
   const [showHint, setShowHint] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
 
   // تصفية المنتجات حسب البحث
   const filteredProducts = products.filter((product) =>
@@ -280,6 +286,11 @@ function Products() {
     setCurrentPage(1);
   };
 
+  const handleDeleteProduct = (productId) => {
+    const updatedProducts = products.filter(product => product.id !== productId);
+    setProducts(updatedProducts);
+  };
+
   return (
     <div className="dashboard-container">
       <Header />
@@ -368,10 +379,15 @@ function Products() {
                           </td>
                           <td>
                             <div className="action-buttons">
-                              <button className="btn-action btn-edit">
+                              <button className="btn-action btn-edit" onClick={() => {
+                                navigate(`/dashboard/add-products?edit=${product.id}`, { state: { product } });
+                              }}>
                                 تعديل <Edit className="edit-icon" />
                               </button>
-                              <button className="btn-action btn-delete">
+                              <button className="btn-action btn-delete" onClick={() => {
+                                setProductToDelete(product);
+                                setShowDeleteModal(true);
+                              }}>
                                 حذف <Delete className="delete-icon" />
                               </button>
                             </div>
@@ -538,6 +554,43 @@ function Products() {
               </button>
               <button className="filter-btn-secondary" onClick={clearFilter}>
                 مسح الكل
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {showDeleteModal && (
+        <div className="delete-modal-overlay">
+          <div className="delete-modal-container">
+            <Warning className="warning-icon" />
+            <div className="delete-modal-content">
+              <h3 className="delete-modal-title">
+                هل أنت متأكد من حذف المنتج المحدد من المتجر؟
+              </h3>
+              <p className="delete-modal-message">
+                سيتم إزالة المنتج نهائياً وجميع التقييمات المرتبطة به
+              </p>
+            </div>
+            <div className="delete-modal-actions">
+              <button 
+                className="delete-btn-confirm"
+                onClick={() => {
+                  handleDeleteProduct(productToDelete.id);
+                  setShowDeleteModal(false);
+                  setProductToDelete(null);
+                }}
+              >
+                حذف
+              </button>
+              <button 
+                className="delete-btn-cancel"
+                onClick={() => {
+                  setShowDeleteModal(false);
+                  setProductToDelete(null);
+                }}
+              >
+                تراجع
               </button>
             </div>
           </div>
