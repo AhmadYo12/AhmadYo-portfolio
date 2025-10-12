@@ -253,6 +253,7 @@
   font-weight: 600;
   margin-bottom: 3px;
   font-size: 14px;
+  font-weight: 700;
 }
 
 .tooltip-text {
@@ -260,12 +261,18 @@
   font-size: 12px;
   line-height: 1.2;
   margin-bottom: 3px;
+  font-weight: 700;
 }
 
 .tooltip-formula {
   color: var(--dark-text);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.tooltip-formula .highlight {
+  color: var(--primary-color);
+  font-weight: 700;
 }
 
 .password-section {

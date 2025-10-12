@@ -240,12 +240,12 @@ function Account() {
                       />
                       <i className="fa fa-exclamation-circle info-icon-inside"></i>
                       <div className="tooltip">
-                        <div className="tooltip-title">معامل الضرب:</div>
+                        <div className="tooltip-title">سعر الصرف :</div>
                         <div className="tooltip-text">
-                          هو الرقم الذي يتم ضربه بسعر المنتج بالدولار لحساب السعر بالليرة السورية.
+                         سيتم عرض ثمن المنتج بالليرة السورية وفقا لسعر الصرف الخاص بك.
                         </div>
                         <div className="tooltip-formula">
-                          السعر النهائي = السعر بالدولار * معامل الضرب
+                          السعر النهائي = السعر بالدولار * <span className="highlight">معامل الضرب</span>
                         </div>
                       </div>
                     </div>
