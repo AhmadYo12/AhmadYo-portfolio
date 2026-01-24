@@ -68,7 +68,7 @@ const Projects = () => {
       title: 'Smart University Entry System',
       description: 'Intelligent access control system for university campuses with real-time monitoring and automated student authentication.',
       technologies: ['React.js', 'Arduino Uno', 'ESP32', 'ThingSpeak', 'IoT'],
-      images: [project5_0, project5_1, project5_2, project5_3],
+      images: [project5_0, project5_2, project5_1, project5_3],
       githubLink: 'https://github.com/AhmadYo12',
       youtubeVideo: 'https://www.youtube.com/embed/Gk-LU5aM744?autoplay=1&mute=1',
       youtubeThumbnail: 'https://img.youtube.com/vi/Gk-LU5aM744/maxresdefault.jpg'
