@@ -1,48 +1,31 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import ForgotPassword from "./pages/ForgotPassword";
-import VerifyCode from "./pages/VerifyCode";
-import NewPassword from "./pages/NewPassword";
-import CheckAccount from "./pages/CheckAccount";
-import DashboardHome from "./pages/DashboardHome";
-import NewOrder from "./pages/NewOrders";
-import Orders from "./pages/Orders";
-import OrdersEnded from "./pages/OrdersEnded";
-import Products from "./pages/Products";
-import AddProducts from "./pages/add products/AddProducts";
-import Sales from "./pages/Sales";
-import Account from "./pages/Account";
-import HomeOrders from "./pages/HomeOrders"; // صفحة تفاصيل الطلب
-import ProtectedRoute from "./components/ProtectedRoute";
+import React, { useState } from 'react';
+import './styles/App.css';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
+import Experience from './components/Experience';
+import Contact from './components/Contact';
 
-import "./styles/base.css";
+function App() {
+  const [darkMode, setDarkMode] = useState(true);
 
-export default function App() {
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
-    <Router>
-      <Routes>
-        {/* صفحات خارج الداشبورد */}
-        <Route path="/" element={<ProtectedRoute guestOnly><Login /></ProtectedRoute>} />
-        <Route path="/login" element={<ProtectedRoute guestOnly><Login /></ProtectedRoute>} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/verify-code" element={<VerifyCode />} />
-        <Route path="/new-password" element={<NewPassword />} />
-        <Route path="/check-account" element={<CheckAccount />} />
-
-        {/* صفحات الداشبورد */}
-        <Route path="/dashboard" element={<ProtectedRoute><DashboardHome /></ProtectedRoute>} />
-        <Route path="/dashboard/neworder" element={<ProtectedRoute><NewOrder /></ProtectedRoute>} />
-        <Route path="/dashboard/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
-        <Route path="/dashboard/ordersended" element={<ProtectedRoute><OrdersEnded /></ProtectedRoute>} />
-        <Route path="/dashboard/products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
-        <Route path="/dashboard/add-products" element={<ProtectedRoute><AddProducts /></ProtectedRoute>} />
-        <Route path="/dashboard/sales" element={<ProtectedRoute><Sales /></ProtectedRoute>} />
-        <Route path="/dashboard/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
-        <Route
-          path="/dashboard/order-details/:orderId"
-          element={<ProtectedRoute><HomeOrders /></ProtectedRoute>}
-        />
-      </Routes>
-    </Router>
+    <div className={`App ${darkMode ? 'dark' : 'light'}`}>
+      <Header darkMode={darkMode} toggleTheme={toggleTheme} />
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Experience />
+      <Contact />
+    </div>
   );
 }
+
+export default App;
