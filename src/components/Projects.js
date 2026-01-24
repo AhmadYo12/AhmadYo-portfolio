@@ -33,7 +33,7 @@ const Projects = () => {
   };
 
   const handleCardHover = (projectId, hasVideo) => {
-    if (hasVideo) {
+    if (hasVideo && projectId === 6) {
       setShowVideoForProject(prev => ({ ...prev, [projectId]: true }));
     }
   };
@@ -69,7 +69,9 @@ const Projects = () => {
       description: 'Intelligent access control system for university campuses with real-time monitoring and automated student authentication.',
       technologies: ['React.js', 'Arduino Uno', 'ESP32', 'ThingSpeak', 'IoT'],
       images: [project5_0, project5_1, project5_2, project5_3],
-      githubLink: 'https://github.com/AhmadYo12'
+      githubLink: 'https://github.com/AhmadYo12',
+      youtubeVideo: 'https://www.youtube.com/embed/Gk-LU5aM744?autoplay=1&mute=1',
+      youtubeThumbnail: 'https://img.youtube.com/vi/Gk-LU5aM744/maxresdefault.jpg'
     },
     {
       id: 5,
@@ -108,10 +110,20 @@ const Projects = () => {
           {projects.map((project) => (
             <div key={project.id} className={`project-card ${project.isInProgress ? 'in-progress' : ''}`} onClick={() => project.isInProgress ? null : openModal(project)} onMouseEnter={() => handleCardHover(project.id, project.video)}>
               <div className="project-image">
-                {project.video && showVideoForProject[project.id] !== false ? (
-                  <video autoPlay muted playsInline onEnded={() => handleVideoEnd(project.id)}>
+                {project.video && (showVideoForProject[project.id] !== false) ? (
+                  <video key={showVideoForProject[project.id]} autoPlay muted playsInline onEnded={() => handleVideoEnd(project.id)}>
                     <source src={project.video} type="video/mp4" />
                   </video>
+                ) : project.video ? (
+                  <img src={project.images[0]} alt={project.title} />
+                ) : project.youtubeVideo ? (
+                  <iframe
+                    src={project.youtubeVideo}
+                    title={project.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
                 ) : (
                   <img src={project.images[0]} alt={project.title} />
                 )}
@@ -145,6 +157,19 @@ const Projects = () => {
                 <i className="fas fa-times"></i>
               </button>
               <div className="modal-images">
+                {selectedProject.youtubeVideo && (
+                  <div className="video-container">
+                    <iframe
+                      width="100%"
+                      height="450"
+                      src={selectedProject.youtubeVideo.replace('mute=1', 'mute=0')}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                )}
                 {selectedProject.images.map((image, index) => (
                   <img key={index} src={image} alt={`${selectedProject.title} ${index + 1}`} />
                 ))}
