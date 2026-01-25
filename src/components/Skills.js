@@ -4,7 +4,7 @@ import '../styles/Skills.css';
 const Skills = () => {
   const programmingLanguages = [
     { name: 'JavaScript', level: 90, icon: 'fab fa-js-square' },
-    { name: 'TypeScript', level: 85, icon: 'fab fa-js-square typescript-icon' },
+    { name: 'TypeScript', level: 70, icon: 'fab fa-js-square typescript-icon' },
     { name: 'Java', level: 80, icon: 'fab fa-java' },
     { name: 'C++', level: 75, icon: 'fas fa-code' },
     { name: 'C', level: 70, icon: 'fas fa-code' }

@@ -27,6 +27,28 @@ import project6_1 from '../assets/project 6/Match Up.jpg';
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showVideoForProject, setShowVideoForProject] = useState({});
+  const [visibleProjects, setVisibleProjects] = useState({});
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const projectId = entry.target.getAttribute('data-project-id');
+          if (entry.isIntersecting) {
+            setVisibleProjects(prev => ({ ...prev, [projectId]: true }));
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach((card) => observer.observe(card));
+
+    return () => {
+      projectCards.forEach((card) => observer.unobserve(card));
+    };
+  }, []);
 
   const handleVideoEnd = (projectId) => {
     setShowVideoForProject(prev => ({ ...prev, [projectId]: false }));
@@ -108,7 +130,7 @@ const Projects = () => {
         <h2 className="section-title">My Projects</h2>
         <div className="projects-grid">
           {projects.map((project) => (
-            <div key={project.id} className={`project-card ${project.isInProgress ? 'in-progress' : ''}`} onClick={() => project.isInProgress ? null : openModal(project)} onMouseEnter={() => handleCardHover(project.id, project.video)}>
+            <div key={project.id} className={`project-card ${project.isInProgress ? 'in-progress' : ''}`} data-project-id={project.id} onClick={() => project.isInProgress ? null : openModal(project)} onMouseEnter={() => handleCardHover(project.id, project.video)}>
               <div className="project-image">
                 {project.video && (showVideoForProject[project.id] !== false) ? (
                   <video key={showVideoForProject[project.id]} autoPlay muted playsInline onEnded={() => handleVideoEnd(project.id)}>
@@ -116,7 +138,7 @@ const Projects = () => {
                   </video>
                 ) : project.video ? (
                   <img src={project.images[0]} alt={project.title} />
-                ) : project.youtubeVideo ? (
+                ) : project.youtubeVideo && visibleProjects[project.id] ? (
                   <iframe
                     src={project.youtubeVideo}
                     title={project.title}
