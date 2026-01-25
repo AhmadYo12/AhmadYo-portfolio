@@ -27,26 +27,25 @@ import project6_1 from '../assets/project 6/Match Up.jpg';
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showVideoForProject, setShowVideoForProject] = useState({});
-  const [visibleProjects, setVisibleProjects] = useState({});
+  const [sectionVisible, setSectionVisible] = useState(false);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const projectId = entry.target.getAttribute('data-project-id');
           if (entry.isIntersecting) {
-            setVisibleProjects(prev => ({ ...prev, [projectId]: true }));
+            setSectionVisible(true);
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
 
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach((card) => observer.observe(card));
+    const section = document.querySelector('#projects');
+    if (section) observer.observe(section);
 
     return () => {
-      projectCards.forEach((card) => observer.unobserve(card));
+      if (section) observer.unobserve(section);
     };
   }, []);
 
@@ -138,7 +137,7 @@ const Projects = () => {
                   </video>
                 ) : project.video ? (
                   <img src={project.images[0]} alt={project.title} />
-                ) : project.youtubeVideo && visibleProjects[project.id] ? (
+                ) : project.youtubeVideo && sectionVisible ? (
                   <iframe
                     src={project.youtubeVideo}
                     title={project.title}
