@@ -24,6 +24,10 @@ import project5_3 from '../assets/project 5/2.jpg';
 import project6_video from '../assets/project 6/Firefly Initially, the app name -Match Up- appears, followed by an arrow pointing upwards from below.mp4';
 import project6_1 from '../assets/project 6/Match Up.jpg';
 
+import project7_1 from '../assets/project 7/1.jpg';
+import project7_2 from '../assets/project 7/2.jpg';
+import project7_3 from '../assets/project 7/3.jpg';
+
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showVideoForProject, setShowVideoForProject] = useState({});
@@ -64,7 +68,7 @@ const Projects = () => {
       id: 1,
       title: 'E-Commerce Platform',
       description: 'Modern e-commerce website with shopping cart, product catalog, and user authentication. Built with React.js and responsive design.',
-      technologies: ['React.js', 'JavaScript', 'CSS3', 'Responsive Design'],
+      technologies: ['HTML', 'CSS3', 'UI/UX'],
       images: [project1_1, project1_2, project1_3, project1_4],
       githubLink: 'https://github.com/AhmadYo12'
     },
@@ -80,12 +84,20 @@ const Projects = () => {
       id: 3,
       title: 'Dashboard Application',
       description: 'Interactive dashboard with data visualization, charts, and admin panel. Clean interface with dark/light mode support.',
-      technologies: ['React.js', 'JavaScript', 'Charts.js', 'CSS3'],
+      technologies: ['HTML', 'CSS3', 'UI/UX'],
       images: [project3_1, project3_2, project3_3],
       githubLink: 'https://github.com/AhmadYo12'
     },
     {
       id: 4,
+      title: 'Working Hours',
+      description: 'Employee attendance management system with real-time tracking, shift scheduling, and comprehensive reporting dashboard.',
+      technologies: ['React.js', 'Firebase', 'CSS3'],
+      images: [project7_2, project7_3, project7_1],
+      githubLink: 'https://github.com/AhmadYo12'
+    },
+    {
+      id: 5,
       title: 'Smart University Entry System',
       description: 'Intelligent access control system for university campuses with real-time monitoring and automated student authentication.',
       technologies: ['React.js', 'Arduino Uno', 'ESP32', 'ThingSpeak', 'IoT'],
@@ -95,7 +107,7 @@ const Projects = () => {
       youtubeThumbnail: 'https://img.youtube.com/vi/Gk-LU5aM744/maxresdefault.jpg'
     },
     {
-      id: 5,
+      id: 6,
       title: 'Dento',
       description: 'Work in Progress - Currently under development',
       technologies: ['In Development'],
@@ -104,7 +116,7 @@ const Projects = () => {
       isInProgress: true
     },
     {
-      id: 6,
+      id: 7,
       title: 'Match Up',
       description: 'Work in Progress - Mobile application under development',
       technologies: ['React Native', 'In Development'],
