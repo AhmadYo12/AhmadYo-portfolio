@@ -115,11 +115,16 @@
   padding: 12px 24px;
   border-radius: 25px;
   font-weight: 600;
+  font-size: inherit;
+  font-family: inherit;
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
+  text-decoration: none;
+  width: 180px;
 }
 
 .view-btn:hover {
