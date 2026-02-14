@@ -98,9 +98,10 @@
 
 .project-actions {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
+
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
 }
 
 .view-btn {

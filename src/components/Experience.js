@@ -12,10 +12,10 @@ const Experience = () => {
       current: true
     },
     {
-      title: 'Freelance Developer',
-      company: 'Self-Employed',
+      title: 'Front-End & Mobile App Developer',
+      company: 'Freelance',
       period: 'Present',
-      description: 'Providing freelance programming services and developing custom web solutions for various clients.',
+      description: 'Working on front-end web projects and mobile application development.',
       icon: 'fas fa-laptop-code',
       current: true
     }
