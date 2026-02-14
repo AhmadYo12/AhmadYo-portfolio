@@ -96,6 +96,13 @@
   opacity: 1;
 }
 
+.project-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .view-btn {
   background: linear-gradient(
     45deg,
@@ -116,6 +123,10 @@
 
 .view-btn:hover {
   transform: scale(1.05);
+}
+
+.live-btn {
+  text-decoration: none;
 }
 
 .project-info {

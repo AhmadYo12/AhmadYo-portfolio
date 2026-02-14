@@ -94,7 +94,8 @@ const Projects = () => {
       description: 'Employee attendance management system with real-time tracking, shift scheduling, and comprehensive reporting dashboard.',
       technologies: ['React.js', 'Firebase', 'CSS3'],
       images: [project7_2, project7_3, project7_1],
-      githubLink: 'https://github.com/AhmadYo12'
+      githubLink: 'https://github.com/AhmadYo12',
+      liveLink: 'https://working-hours-basirah.netlify.app/'
     },
     {
       id: 5,
@@ -162,10 +163,23 @@ const Projects = () => {
                 )}
                 <div className="project-overlay">
                   <div className="project-actions">
-                    <button className="view-btn">
-                      <i className={project.isInProgress ? "fas fa-clock" : "fas fa-eye"}></i>
-                      {project.isInProgress ? "In Progress" : "View Details"}
-                    </button>
+                    {project.liveLink ? (
+                      <>
+                        <button className="view-btn" onClick={(e) => { e.stopPropagation(); openModal(project); }}>
+                          <i className="fas fa-eye"></i>
+                          View Details
+                        </button>
+                        <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="view-btn live-btn" onClick={(e) => e.stopPropagation()}>
+                          <i className="fas fa-external-link-alt"></i>
+                          Visit Site
+                        </a>
+                      </>
+                    ) : (
+                      <button className="view-btn">
+                        <i className={project.isInProgress ? "fas fa-clock" : "fas fa-eye"}></i>
+                        {project.isInProgress ? "In Progress" : "View Details"}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
