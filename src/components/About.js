@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/About.css";
 
 const About = () => {
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
+
+  React.useEffect(() => {
+    // تشغيل فوري للمرة الأولى
+    setShowWelcome(true);
+    setAnimationKey(prev => prev + 1);
+    setTimeout(() => setShowWelcome(false), 3000);
+
+    // ثم التكرار كل 5 ثواني
+    const interval = setInterval(() => {
+      setShowWelcome(true);
+      setAnimationKey(prev => prev + 1);
+      setTimeout(() => setShowWelcome(false), 3000);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section id="about" className="section about">
       <div className="container">
@@ -47,6 +65,7 @@ const About = () => {
                 <span className="variable"> developer</span>
                 <span className="operator"> = </span>
                 <span className="string">"Ahmad Yousef"</span>
+                <span className="operator">;</span>
               </div>
               <div className="code-line">
                 <span className="keyword">const</span>
@@ -60,13 +79,24 @@ const About = () => {
               </div>
               <div className="code-line indent">
                 <span className="string">"JavaScript"</span>
-                <span className="comma">,</span>
-              </div>
-              <div className="code-line indent">
-                <span className="string">"TypeScript"</span>
               </div>
               <div className="code-line">
                 <span className="bracket">]</span>
+                <span className="operator">;</span>
+              </div>
+              <div className="code-line cursor-line">
+                {!showWelcome && <span className="blinking-cursor"></span>}
+                {showWelcome && (
+                  <span key={animationKey} className="typing-animation">
+                    <span className="keyword">console</span>
+                    <span className="operator">.</span>
+                    <span className="keyword">log</span>
+                    <span className="bracket">(</span>
+                    <span className="string">"Welcome to my website!"</span>
+                    <span className="bracket">)</span>
+                    <span className="operator">;</span>
+                  </span>
+                )}
               </div>
             </div>
           </div>

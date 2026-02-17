@@ -58,7 +58,7 @@ const Projects = () => {
   };
 
   const handleCardHover = (projectId, hasVideo) => {
-    if (hasVideo && projectId === 6) {
+    if (hasVideo && projectId === 7) {
       setShowVideoForProject(prev => ({ ...prev, [projectId]: true }));
     }
   };
@@ -144,8 +144,8 @@ const Projects = () => {
           {projects.map((project) => (
             <div key={project.id} className={`project-card ${project.isInProgress ? 'in-progress' : ''}`} data-project-id={project.id} onClick={() => project.isInProgress ? null : openModal(project)} onMouseEnter={() => handleCardHover(project.id, project.video)}>
               <div className="project-image">
-                {project.video && (showVideoForProject[project.id] !== false) ? (
-                  <video key={showVideoForProject[project.id]} autoPlay muted playsInline onEnded={() => handleVideoEnd(project.id)}>
+                {project.video && showVideoForProject[project.id] ? (
+                  <video autoPlay muted playsInline onEnded={() => handleVideoEnd(project.id)}>
                     <source src={project.video} type="video/mp4" />
                   </video>
                 ) : project.video ? (
@@ -224,10 +224,18 @@ const Projects = () => {
               <div className="modal-info">
                 <h3>{selectedProject.title}</h3>
                 <p>{selectedProject.description}</p>
-                <div className="modal-tech">
-                  {selectedProject.technologies.map((tech, index) => (
-                    <span key={index} className="tech-tag">{tech}</span>
-                  ))}
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem'}}>
+                  <div className="modal-tech">
+                    {selectedProject.technologies.map((tech, index) => (
+                      <span key={index} className="tech-tag">{tech}</span>
+                    ))}
+                  </div>
+                  {selectedProject.liveLink && (
+                    <a href={selectedProject.liveLink} target="_blank" rel="noopener noreferrer" className="view-btn live-btn">
+                      <i className="fas fa-external-link-alt"></i>
+                      Visit Site
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
