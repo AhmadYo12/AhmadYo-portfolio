@@ -94,7 +94,7 @@ const Projects = () => {
       description: 'Employee attendance management system with real-time tracking, shift scheduling, and comprehensive reporting dashboard.',
       technologies: ['React.js', 'Firebase', 'CSS3'],
       images: [project7_2, project7_3, project7_1],
-      githubLink: 'https://github.com/AhmadYo12',
+      githubLink: 'https://github.com/AhmadYo12/Working-Hours',
       liveLink: 'https://working-hours-basirah.netlify.app/'
     },
     {
@@ -103,7 +103,7 @@ const Projects = () => {
       description: 'Intelligent access control system for university campuses with real-time monitoring and automated student authentication.',
       technologies: ['React.js', 'Arduino Uno', 'ESP32', 'ThingSpeak', 'IoT'],
       images: [project5_0, project5_2, project5_1, project5_3],
-      githubLink: 'https://github.com/AhmadYo12',
+      githubLink: 'https://github.com/AhmadYo12/Smart-University-Entry-System',
       youtubeVideo: 'https://www.youtube.com/embed/Gk-LU5aM744?autoplay=1&mute=1',
       youtubeThumbnail: 'https://img.youtube.com/vi/Gk-LU5aM744/maxresdefault.jpg'
     },
@@ -230,12 +230,20 @@ const Projects = () => {
                       <span key={index} className="tech-tag">{tech}</span>
                     ))}
                   </div>
-                  {selectedProject.liveLink && (
-                    <a href={selectedProject.liveLink} target="_blank" rel="noopener noreferrer" className="view-btn live-btn">
-                      <i className="fas fa-external-link-alt"></i>
-                      Visit Site
-                    </a>
-                  )}
+                  <div style={{display: 'flex', gap: '1rem', flexWrap: 'wrap'}}>
+                    {selectedProject.githubLink && selectedProject.githubLink !== '#' && (
+                      <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer" className="view-btn github-btn">
+                        <i className="fab fa-github"></i>
+                        GitHub
+                      </a>
+                    )}
+                    {selectedProject.liveLink && (
+                      <a href={selectedProject.liveLink} target="_blank" rel="noopener noreferrer" className="view-btn live-btn">
+                        <i className="fas fa-external-link-alt"></i>
+                        Visit Site
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
