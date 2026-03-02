@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/Hero.css';
 import myPhoto from '../assets/me.jpg';
+import { generateCV } from '../utils/generateCV';
 
 const Hero = () => {
   return (
@@ -21,6 +22,9 @@ const Hero = () => {
               <a href="#contact" className="btn btn-secondary">
                 Get In Touch
               </a>
+              <button onClick={generateCV} className="btn btn-secondary">
+                <i className="fas fa-download"></i> Download CV
+              </button>
             </div>
             <div className="social-links">
               <a href="mailto:ahmadyo8643@gmail.com" target="_blank" rel="noopener noreferrer">

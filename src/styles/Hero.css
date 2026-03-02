@@ -4,7 +4,11 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--bg-primary) 0%,
+    var(--bg-secondary) 100%
+  );
 }
 
 .hero-content {
@@ -25,7 +29,11 @@
 }
 
 .highlight {
-  background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+  background: linear-gradient(
+    45deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -42,6 +50,7 @@
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -55,7 +64,11 @@
 }
 
 .btn-primary {
-  background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+  background: linear-gradient(
+    45deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
   color: white;
   border: none;
 }
@@ -69,6 +82,12 @@
   background: transparent;
   color: var(--text-primary);
   border: 2px solid var(--accent-primary);
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .btn-secondary:hover {
@@ -137,7 +156,11 @@
   width: 350px;
   height: 350px;
   border-radius: 50%;
-  background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+  background: linear-gradient(
+    45deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -166,7 +189,11 @@
 .floating-element {
   position: absolute;
   border-radius: 50%;
-  background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+  background: linear-gradient(
+    45deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
   opacity: 0.1;
   animation: float 6s ease-in-out infinite;
 }
@@ -196,7 +223,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -231,6 +259,7 @@
 
   .btn {
     width: 200px;
+    font-size: 0.8rem;
   }
 
   .social-links {
@@ -276,6 +305,5 @@
 
   .btn {
     width: 180px;
-    padding: 10px 20px;
   }
 }
