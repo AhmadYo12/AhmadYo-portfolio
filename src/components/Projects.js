@@ -28,6 +28,8 @@ import project7_1 from '../assets/project 7/1.jpg';
 import project7_2 from '../assets/project 7/2.jpg';
 import project7_3 from '../assets/project 7/3.jpg';
 
+import project8_1 from '../assets/project 8/1.jpg';
+
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showVideoForProject, setShowVideoForProject] = useState({});
@@ -109,6 +111,14 @@ const Projects = () => {
     },
     {
       id: 6,
+      title: 'Basirah',
+      description: 'Islamic studies academy with educational programs in Islamic sciences and modern learning system.',
+      technologies: ['Vue.js', 'PHP'],
+      images: [project8_1],
+      liveLink: 'https://www.basirahonline.com/'
+    },
+    {
+      id: 7,
       title: 'Dento',
       description: 'Work in Progress - Currently under development',
       technologies: ['In Development'],
@@ -117,7 +127,7 @@ const Projects = () => {
       isInProgress: true
     },
     {
-      id: 7,
+      id: 8,
       title: 'Match Up',
       description: 'Work in Progress - Mobile application under development',
       technologies: ['React Native', 'In Development'],
