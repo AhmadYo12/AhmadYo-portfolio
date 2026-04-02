@@ -115,7 +115,9 @@ const Projects = () => {
       description: 'Islamic studies academy with educational programs in Islamic sciences and modern learning system.',
       technologies: ['Vue.js', 'PHP'],
       images: [project8_1],
-      liveLink: 'https://www.basirahonline.com/'
+      liveLink: 'https://www.basirahonline.com/',
+      youtubeVideo: 'https://www.youtube.com/embed/jl17UgOofqo?autoplay=1&mute=1',
+      youtubeThumbnail: 'https://img.youtube.com/vi/jl17UgOofqo/maxresdefault.jpg'
     },
     {
       id: 7,
