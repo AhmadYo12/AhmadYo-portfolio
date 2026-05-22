@@ -7,12 +7,17 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* Theme Variables */
@@ -42,6 +47,9 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: all 0.3s ease;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
 }
 
 /* Utility Classes */
