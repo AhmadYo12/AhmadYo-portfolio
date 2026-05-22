@@ -47,9 +47,9 @@ const Contact = () => {
   return (
     <section id="contact" className="section contact">
       <div className="container">
-        <h2 className="section-title">Get In Touch</h2>
+        <h2 className="section-title" data-aos="fade-up">Get In Touch</h2>
         <div className="contact-content">
-          <div className="contact-info">
+          <div className="contact-info" data-aos="fade-right" data-aos-delay="100">
             <h3>Let's Work Together</h3>
             <p>
               I'm always interested in new opportunities and exciting projects. 
@@ -58,7 +58,7 @@ const Contact = () => {
             
             <div className="contact-methods">
               {contactInfo.map((info, index) => (
-                <div key={index} className="contact-method">
+                <div key={index} className="contact-method" data-aos="zoom-in" data-aos-delay={200 + (index * 100)}>
                   <div className="contact-icon">
                     <i className={info.icon}></i>
                   </div>
@@ -87,7 +87,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="contact-form-container">
+          <div className="contact-form-container" data-aos="fade-left" data-aos-delay="100">
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Name</label>

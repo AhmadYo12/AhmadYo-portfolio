@@ -14,7 +14,7 @@ export const generateCV = () => {
   doc.text('AHMAD YOUSEF', pageWidth / 2, 15, { align: 'center' });
   doc.setFontSize(12);
   doc.setFont(undefined, 'normal');
-  doc.text('Front-end Developer', pageWidth / 2, 22, { align: 'center' });
+  doc.text('Front-end & Mobile App Developer', pageWidth / 2, 22, { align: 'center' });
 
   y = 35;
   doc.setTextColor(0, 0, 0);
@@ -39,7 +39,7 @@ export const generateCV = () => {
   doc.setFont(undefined, 'normal');
   doc.setTextColor(0, 0, 0);
   const summary = doc.splitTextToSize(
-    'Computer Engineer at Damascus University with two years of experience in website programming. Specializing in creating modern, responsive web applications using React.js and cutting-edge technologies. Passionate about delivering high-quality solutions and working with teams to automate software projects.',
+    'Computer Engineer at Damascus University with three years of experience in web and mobile application development. Specializing in creating modern, responsive web applications and mobile apps using React.js, React Native, and cutting-edge technologies. Passionate about delivering high-quality solutions and working with teams to automate software projects.',
     170
   );
   doc.text(summary, 15, y);
@@ -77,11 +77,11 @@ export const generateCV = () => {
   doc.text('Front-End & Mobile App Developer', 15, y);
   doc.setFontSize(9);
   doc.setFont(undefined, 'normal');
-  doc.text('Freelance | Present', 15, y + 5);
+  doc.text('Freelance | 2023 - Present', 15, y + 5);
   y += 10;
   doc.setFontSize(9);
   const job2Desc = doc.splitTextToSize(
-    'Working on front-end web projects and mobile application development.',
+    'Working on front-end web projects and mobile application development using React.js and React Native.',
     170
   );
   doc.text(job2Desc, 15, y);
@@ -138,11 +138,11 @@ export const generateCV = () => {
   // Project 1
   doc.setFontSize(10);
   doc.setTextColor(0, 0, 0);
-  doc.text('Smart University Entry System', 15, y);
+  doc.text('Working Hours Management System', 15, y);
   doc.setFontSize(9);
   doc.setFont(undefined, 'normal');
   const proj1 = doc.splitTextToSize(
-    'Intelligent access control system with real-time monitoring and automated student authentication using React.js, Arduino Uno, ESP32, and ThingSpeak.',
+    'Employee attendance management system with real-time tracking, shift scheduling, and comprehensive reporting dashboard using React.js and Firebase.',
     170
   );
   doc.text(proj1, 15, y + 4);
@@ -151,11 +151,11 @@ export const generateCV = () => {
   // Project 2
   doc.setFontSize(10);
   doc.setFont(undefined, 'bold');
-  doc.text('Working Hours Management System', 15, y);
+  doc.text('Smart University Entry System', 15, y);
   doc.setFontSize(9);
   doc.setFont(undefined, 'normal');
   const proj2 = doc.splitTextToSize(
-    'Employee attendance system with real-time tracking, shift scheduling, and comprehensive reporting dashboard using React.js and Firebase.',
+    'Intelligent access control system for university campuses with real-time monitoring and automated student authentication using React.js, Arduino Uno, ESP32, and ThingSpeak.',
     170
   );
   doc.text(proj2, 15, y + 4);
@@ -164,15 +164,41 @@ export const generateCV = () => {
   // Project 3
   doc.setFontSize(10);
   doc.setFont(undefined, 'bold');
-  doc.text('E-Commerce Platform', 15, y);
+  doc.text('Match Up - Sports Field Booking App', 15, y);
   doc.setFontSize(9);
   doc.setFont(undefined, 'normal');
   const proj3 = doc.splitTextToSize(
-    'Modern e-commerce website with shopping cart, product catalog, and user authentication built with React.js.',
+    'Mobile application for booking sports fields in Syria (football, basketball, tennis, padel, volleyball, handball) built with React Native and Laravel.',
     170
   );
   doc.text(proj3, 15, y + 4);
-  y += proj3.length * 4 + 8;
+  y += proj3.length * 4 + 7;
+
+  // Project 4
+  doc.setFontSize(10);
+  doc.setFont(undefined, 'bold');
+  doc.text('FER_AI - Facial Expression Recognition', 15, y);
+  doc.setFontSize(9);
+  doc.setFont(undefined, 'normal');
+  const proj4 = doc.splitTextToSize(
+    'AI-powered facial expression recognition system for emotion detection and analysis using Python, Computer Vision, and Machine Learning algorithms.',
+    170
+  );
+  doc.text(proj4, 15, y + 4);
+  y += proj4.length * 4 + 7;
+
+  // Project 5
+  doc.setFontSize(10);
+  doc.setFont(undefined, 'bold');
+  doc.text('Dento - Dental Lab E-Commerce Platform', 15, y);
+  doc.setFontSize(9);
+  doc.setFont(undefined, 'normal');
+  const proj5 = doc.splitTextToSize(
+    'E-commerce platform connecting dental laboratories with dentists, featuring product catalog, ordering system, and inventory management.',
+    170
+  );
+  doc.text(proj5, 15, y + 4);
+  y += proj5.length * 4 + 8;
 
   // Education
   doc.setFontSize(13);

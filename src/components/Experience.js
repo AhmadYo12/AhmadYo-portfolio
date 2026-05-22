@@ -14,8 +14,8 @@ const Experience = () => {
     {
       title: 'Front-End & Mobile App Developer',
       company: 'Freelance',
-      period: 'Present',
-      description: 'Working on front-end web projects and mobile application development.',
+      period: '2023 - Present',
+      description: 'Working on front-end web projects and mobile application development using React.js and React Native.',
       icon: 'fas fa-laptop-code',
       current: true
     }
@@ -24,10 +24,15 @@ const Experience = () => {
   return (
     <section id="experience" className="section experience">
       <div className="container">
-        <h2 className="section-title">Work Experience</h2>
+        <h2 className="section-title" data-aos="fade-up">Work Experience</h2>
         <div className="timeline">
           {experiences.map((exp, index) => (
-            <div key={index} className={`timeline-item ${exp.current ? 'current' : ''}`}>
+            <div 
+              key={index} 
+              className={`timeline-item ${exp.current ? 'current' : ''}`} 
+              data-aos={index % 2 === 0 ? "fade-right" : "fade-left"} 
+              data-aos-delay={index * 200}
+            >
               <div className="timeline-marker">
                 <div className="timeline-icon">
                   <i className={exp.icon}></i>

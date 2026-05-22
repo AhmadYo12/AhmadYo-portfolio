@@ -23,13 +23,13 @@ const About = () => {
   return (
     <section id="about" className="section about">
       <div className="container">
-        <h2 className="section-title">About Me</h2>
+        <h2 className="section-title" data-aos="fade-up">About Me</h2>
         <div className="about-content">
-          <div className="about-text">
+          <div className="about-text" data-aos="fade-right" data-aos-delay="200">
             <p className="about-description">
-              Computer Engineer at Damascus University with two years of
-              experience in website programming. I specialize in creating
-              modern, responsive web applications using React.js and
+              Computer Engineer at Damascus University with three years of
+              experience in web and mobile application development. I specialize in creating
+              modern, responsive web applications and mobile apps using React.js, React Native and
               cutting-edge technologies.
             </p>
             <p className="about-description">
@@ -38,22 +38,22 @@ const About = () => {
               exceptional user experiences through clean, efficient code.
             </p>
             <div className="about-stats">
-              <div className="stat">
-                <h3>2+</h3>
+              <div className="stat" data-aos="zoom-in" data-aos-delay="300">
+                <h3>3+</h3>
                 <p>Years Experience</p>
               </div>
-              <div className="stat">
+              <div className="stat" data-aos="zoom-in" data-aos-delay="400">
                 <h3>4+</h3>
                 <p>Projects Completed</p>
               </div>
-              <div className="stat">
+              <div className="stat" data-aos="zoom-in" data-aos-delay="500">
                 <h3>100%</h3>
                 <p>Client Satisfaction</p>
               </div>
             </div>
           </div>
 
-          <div className="code-snippet">
+          <div className="code-snippet" data-aos="fade-left" data-aos-delay="200">
             <div className="code-header">
               <span className="dot red"></span>
               <span className="dot yellow"></span>

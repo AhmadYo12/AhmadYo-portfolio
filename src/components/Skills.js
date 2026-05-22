@@ -27,12 +27,12 @@ const Skills = () => {
     { name: 'GitLab', level: 85, icon: 'fab fa-gitlab' }
   ];
 
-  const SkillCard = ({ skills, title }) => (
-    <div className="skill-category">
+  const SkillCard = ({ skills, title, delay = 0 }) => (
+    <div className="skill-category" data-aos="fade-up" data-aos-delay={delay} data-aos-duration="600">
       <h3 className="category-title">{title}</h3>
       <div className="skills-grid">
         {skills.map((skill, index) => (
-          <div key={index} className="skill-item">
+          <div key={index} className="skill-item" data-aos="zoom-in" data-aos-delay={delay + (index * 70)} data-aos-duration="600">
             <div className="skill-header">
               <div className="skill-icon">
                 <i className={skill.icon}></i>
@@ -57,11 +57,11 @@ const Skills = () => {
   return (
     <section id="skills" className="section skills">
       <div className="container">
-        <h2 className="section-title">Skills & Technologies</h2>
+        <h2 className="section-title" data-aos="fade-up">Skills & Technologies</h2>
         <div className="skills-content">
-          <SkillCard skills={programmingLanguages} title="Programming Languages" />
-          <SkillCard skills={frameworks} title="Frameworks & Libraries" />
-          <SkillCard skills={tools} title="Tools & Technologies" />
+          <SkillCard skills={programmingLanguages} title="Programming Languages" delay={100} />
+          <SkillCard skills={frameworks} title="Frameworks & Libraries" delay={200} />
+          <SkillCard skills={tools} title="Tools & Technologies" delay={300} />
         </div>
       </div>
     </section>
