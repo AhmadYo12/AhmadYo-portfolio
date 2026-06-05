@@ -52,7 +52,7 @@ const Projects = () => {
           if (entry.isIntersecting) {
             setSectionVisible(true);
             const projectId = entry.target.getAttribute('data-project-id');
-            if (projectId === '7') {
+            if (projectId === '5') {
               setShowVideoForProject(prev => ({ ...prev, [projectId]: true }));
             }
           }
@@ -64,7 +64,7 @@ const Projects = () => {
     const section = document.querySelector('#projects');
     if (section) observer.observe(section);
 
-    const matchupCard = document.querySelector('[data-project-id="7"]');
+    const matchupCard = document.querySelector('[data-project-id="5"]');
     if (matchupCard) observer.observe(matchupCard);
 
     return () => {
@@ -86,7 +86,7 @@ const Projects = () => {
   };
 
   const handleCardHover = (projectId, hasVideo) => {
-    if (hasVideo && projectId === 7) {
+    if (hasVideo && projectId === 5) {
       setShowVideoForProject(prev => ({ ...prev, [projectId]: true }));
     }
   };
@@ -98,30 +98,14 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
-      description: 'Modern e-commerce website with shopping cart, product catalog, and user authentication. Built with React.js and responsive design.',
-      technologies: ['HTML', 'CSS3', 'UI/UX'],
-      images: [project1_1, project1_2, project1_3, project1_4],
+      title: 'Landing Page Designs',
+      description: 'Collection of modern and responsive landing pages featuring e-commerce platforms, business websites, and dashboard applications with clean UI/UX design.',
+      technologies: ['HTML5', 'CSS3'],
+      images: [project1_1, project1_2, project1_3, project1_4, project2_1, project2_2, project3_1, project3_2, project3_3],
       githubLink: 'https://github.com/AhmadYo12'
     },
     {
       id: 2,
-      title: 'Business Landing Page',
-      description: 'Professional business landing page with modern design, contact forms, and service showcase. Fully responsive and optimized.',
-      technologies: ['React.js', 'CSS3', 'JavaScript', 'UI/UX'],
-      images: [project2_1, project2_2],
-      githubLink: 'https://github.com/AhmadYo12'
-    },
-    {
-      id: 3,
-      title: 'Dashboard Application',
-      description: 'Interactive dashboard with data visualization, charts, and admin panel. Clean interface with dark/light mode support.',
-      technologies: ['HTML', 'CSS3', 'UI/UX'],
-      images: [project3_1, project3_2, project3_3],
-      githubLink: 'https://github.com/AhmadYo12'
-    },
-    {
-      id: 4,
       title: 'Working Hours',
       description: 'Employee attendance management system with real-time tracking, shift scheduling, and comprehensive reporting dashboard.',
       technologies: ['React.js', 'Firebase', 'CSS3'],
@@ -130,7 +114,7 @@ const Projects = () => {
       liveLink: 'https://working-hours-basirah.netlify.app/'
     },
     {
-      id: 5,
+      id: 3,
       title: 'Smart University Entry System',
       description: 'Intelligent access control system for university campuses with real-time monitoring and automated student authentication.',
       technologies: ['React.js', 'Arduino Uno', 'ESP32', 'ThingSpeak', 'IoT'],
@@ -140,7 +124,7 @@ const Projects = () => {
       youtubeThumbnail: 'https://img.youtube.com/vi/Gk-LU5aM744/maxresdefault.jpg'
     },
     {
-      id: 6,
+      id: 4,
       title: 'Basirah',
       description: 'Islamic studies academy with educational programs in Islamic sciences and modern learning system.',
       technologies: ['Vue.js', 'Laravel'],
@@ -150,7 +134,7 @@ const Projects = () => {
       youtubeThumbnail: 'https://img.youtube.com/vi/jl17UgOofqo/maxresdefault.jpg'
     },
     {
-      id: 7,
+      id: 5,
       title: 'Match Up',
       description: 'Mobile app for booking sports fields in Syria including football, basketball, tennis, padel, volleyball and handball.',
       technologies: ['React Native', 'Laravel'],
@@ -160,7 +144,7 @@ const Projects = () => {
       isMobileApp: true
     },
     {
-      id: 8,
+      id: 6,
       title: 'FER_AI',
       description: 'Facial Expression Recognition system using Artificial Intelligence for emotion detection and analysis.',
       technologies: ['Python', 'AI/ML', 'Computer Vision'],
@@ -169,7 +153,7 @@ const Projects = () => {
       githubLink: 'https://github.com/AhmadYo12/FER_AI.git'
     },
     {
-      id: 9,
+      id: 7,
       title: 'Dento',
       description: 'Work in Progress - Currently under development',
       technologies: ['In Development'],
