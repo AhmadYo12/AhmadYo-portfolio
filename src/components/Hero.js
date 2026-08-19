@@ -13,7 +13,7 @@ const Hero = () => {
               Hi, I'm <span className="highlight">Ahmad Yousef</span>
             </h1>
             <p className="hero-subtitle">
-              Front-end developer with a full team to automate software projects
+              Frontend & Mobile Developer | Software Project Manager
             </p>
             <div className="hero-buttons">
               <a href="#projects" className="btn btn-primary">

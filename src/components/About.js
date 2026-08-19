@@ -33,9 +33,7 @@ const About = () => {
               cutting-edge technologies.
             </p>
             <p className="about-description">
-              I'm passionate about delivering high-quality solutions and working
-              with teams to automate software projects. My goal is to create
-              exceptional user experiences through clean, efficient code.
+              Experienced in software project management and software engineering, having led the development of Match Up and Dento projects. Passionate about delivering high-quality solutions through clean architecture, team coordination, and efficient code.
             </p>
             <div className="about-stats">
               <div className="stat" data-aos="zoom-in" data-aos-delay="300">

@@ -14,7 +14,7 @@ export const generateCV = () => {
   doc.text('AHMAD YOUSEF', pageWidth / 2, 15, { align: 'center' });
   doc.setFontSize(12);
   doc.setFont(undefined, 'normal');
-  doc.text('Front-end & Mobile App Developer', pageWidth / 2, 22, { align: 'center' });
+  doc.text('Frontend & Mobile Developer | Software Project Manager', pageWidth / 2, 22, { align: 'center' });
 
   y = 35;
   doc.setTextColor(0, 0, 0);
@@ -39,7 +39,7 @@ export const generateCV = () => {
   doc.setFont(undefined, 'normal');
   doc.setTextColor(0, 0, 0);
   const summary = doc.splitTextToSize(
-    'Computer Engineer at Damascus University with three years of experience in web and mobile application development. Specializing in creating modern, responsive web applications and mobile apps using React.js, React Native, and cutting-edge technologies. Passionate about delivering high-quality solutions and working with teams to automate software projects.',
+    'Computer Engineer at Damascus University with three years of experience in web and mobile application development. Specializing in creating modern, responsive web applications and mobile apps using React.js, React Native, and cutting-edge technologies. Experienced in software project management and software engineering, having led the development of Match Up and Dento projects.',
     170
   );
   doc.text(summary, 15, y);
@@ -86,6 +86,21 @@ export const generateCV = () => {
   );
   doc.text(job2Desc, 15, y);
   y += job2Desc.length * 4 + 8;
+
+  // Job 3
+  doc.setFontSize(11);
+  doc.setFont(undefined, 'bold');
+  doc.text('Project Manager & Software Engineer', 15, y);
+  doc.setFontSize(9);
+  doc.setFont(undefined, 'normal');
+  doc.text('Match Up & Dento | 2025 - Present', 15, y + 5);
+  y += 10;
+  const job3Desc = doc.splitTextToSize(
+    'Leading the development and management of Match Up and Dento projects. Responsible for software architecture, team coordination, sprint planning, and ensuring delivery of high-quality software solutions.',
+    170
+  );
+  doc.text(job3Desc, 15, y);
+  y += job3Desc.length * 4 + 8;
 
   // Technical Skills
   doc.setFontSize(13);

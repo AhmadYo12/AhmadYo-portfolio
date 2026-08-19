@@ -18,6 +18,14 @@ const Experience = () => {
       description: 'Working on front-end web projects and mobile application development using React.js and React Native.',
       icon: 'fas fa-laptop-code',
       current: true
+    },
+    {
+      title: 'Project Manager & Software Engineer',
+      company: 'Match Up & Dento',
+      period: '2025 - Present',
+      description: 'Leading the development and management of Match Up and Dento projects. Responsible for software architecture, team coordination, sprint planning, and ensuring delivery of high-quality software solutions.',
+      icon: 'fas fa-project-diagram',
+      current: true
     }
   ];
 
